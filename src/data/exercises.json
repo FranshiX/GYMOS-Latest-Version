@@ -1,0 +1,222 @@
+[
+  {
+    "id": "ex_01",
+    "name_ar": "بنش بريس بالبار",
+    "name_en": "Barbell Bench Press",
+    "muscleGroup": "CHEST",
+    "targetMuscles": ["pectoralis_major", "triceps", "anterior_deltoid"],
+    "equipment": "Barbell + Bench",
+    "videoUrl": "https://demo.gymos.app/videos/bench-press",
+    "description_ar": "تمرين أساسي لبناء عضلة الصدر باستخدام البار",
+    "description_en": "Fundamental chest builder using a barbell on a flat bench"
+  },
+  {
+    "id": "ex_02",
+    "name_ar": "دمبل فلاي",
+    "name_en": "Dumbbell Fly",
+    "muscleGroup": "CHEST",
+    "targetMuscles": ["pectoralis_major", "pectoralis_minor"],
+    "equipment": "Dumbbells + Bench",
+    "videoUrl": "https://demo.gymos.app/videos/dumbbell-fly",
+    "description_ar": "تمرين عزل لعضلة الصدر بالدمبل",
+    "description_en": "Isolation movement targeting the chest with dumbbells"
+  },
+  {
+    "id": "ex_03",
+    "name_ar": "ديدليفت",
+    "name_en": "Deadlift",
+    "muscleGroup": "BACK",
+    "targetMuscles": ["erector_spinae", "latissimus_dorsi", "glutes", "hamstrings"],
+    "equipment": "Barbell",
+    "videoUrl": "https://demo.gymos.app/videos/deadlift",
+    "description_ar": "تمرين مركب شامل لأسفل الظهر والأرداف",
+    "description_en": "Compound movement targeting the lower back, glutes and hamstrings"
+  },
+  {
+    "id": "ex_04",
+    "name_ar": "لات بول داون",
+    "name_en": "Lat Pulldown",
+    "muscleGroup": "BACK",
+    "targetMuscles": ["latissimus_dorsi", "biceps", "rear_deltoid"],
+    "equipment": "Cable Machine",
+    "videoUrl": "https://demo.gymos.app/videos/lat-pulldown",
+    "description_ar": "تمرين لتوسيع عضلة الظهر العريضة",
+    "description_en": "Cable exercise to develop the latissimus dorsi width"
+  },
+  {
+    "id": "ex_05",
+    "name_ar": "كيبل رو",
+    "name_en": "Seated Cable Row",
+    "muscleGroup": "BACK",
+    "targetMuscles": ["rhomboids", "latissimus_dorsi", "biceps"],
+    "equipment": "Cable Machine",
+    "videoUrl": "https://demo.gymos.app/videos/cable-row",
+    "description_ar": "تمرين لسحب الكابل وتقوية منتصف الظهر",
+    "description_en": "Cable pulling exercise targeting mid-back thickness"
+  },
+  {
+    "id": "ex_06",
+    "name_ar": "أوفرهيد برس بالبار",
+    "name_en": "Overhead Barbell Press",
+    "muscleGroup": "SHOULDERS",
+    "targetMuscles": ["anterior_deltoid", "medial_deltoid", "triceps"],
+    "equipment": "Barbell",
+    "videoUrl": "https://demo.gymos.app/videos/ohp",
+    "description_ar": "تمرين أساسي لبناء عضلات الكتف",
+    "description_en": "Primary shoulder mass builder using a barbell overhead"
+  },
+  {
+    "id": "ex_07",
+    "name_ar": "لاترال ريز",
+    "name_en": "Lateral Raise",
+    "muscleGroup": "SHOULDERS",
+    "targetMuscles": ["medial_deltoid"],
+    "equipment": "Dumbbells",
+    "videoUrl": "https://demo.gymos.app/videos/lateral-raise",
+    "description_ar": "عزل الجزء الجانبي من عضلة الكتف",
+    "description_en": "Isolation for medial deltoid to widen shoulder appearance"
+  },
+  {
+    "id": "ex_08",
+    "name_ar": "كيبل باي سيبس كيرل",
+    "name_en": "Barbell Bicep Curl",
+    "muscleGroup": "ARMS",
+    "targetMuscles": ["biceps_brachii", "brachialis"],
+    "equipment": "Barbell",
+    "videoUrl": "https://demo.gymos.app/videos/bicep-curl",
+    "description_ar": "تمرين كلاسيكي لبناء عضلة البايسبس",
+    "description_en": "Classic barbell curl for bicep mass and peak"
+  },
+  {
+    "id": "ex_09",
+    "name_ar": "تراي سيبس بوش داون",
+    "name_en": "Tricep Pushdown",
+    "muscleGroup": "ARMS",
+    "targetMuscles": ["triceps_brachii"],
+    "equipment": "Cable Machine",
+    "videoUrl": "https://demo.gymos.app/videos/tricep-pushdown",
+    "description_ar": "تمرين كابل لعزل عضلة التراي سيبس",
+    "description_en": "Cable isolation for all three heads of the tricep"
+  },
+  {
+    "id": "ex_10",
+    "name_ar": "سكوات بالبار",
+    "name_en": "Barbell Squat",
+    "muscleGroup": "LEGS",
+    "targetMuscles": ["quadriceps", "glutes", "hamstrings", "calves"],
+    "equipment": "Barbell + Squat Rack",
+    "videoUrl": "https://demo.gymos.app/videos/squat",
+    "description_ar": "ملك التمارين لبناء الأرجل والجزء السفلي",
+    "description_en": "King of leg exercises for overall lower body development"
+  },
+  {
+    "id": "ex_11",
+    "name_ar": "ليج بريس",
+    "name_en": "Leg Press",
+    "muscleGroup": "LEGS",
+    "targetMuscles": ["quadriceps", "glutes"],
+    "equipment": "Leg Press Machine",
+    "videoUrl": "https://demo.gymos.app/videos/leg-press",
+    "description_ar": "تمرين آلة لبناء الفخذين والأرداف",
+    "description_en": "Machine-based quad and glute developer"
+  },
+  {
+    "id": "ex_12",
+    "name_ar": "رومانيان ديدليفت",
+    "name_en": "Romanian Deadlift",
+    "muscleGroup": "LEGS",
+    "targetMuscles": ["hamstrings", "glutes", "erector_spinae"],
+    "equipment": "Barbell",
+    "videoUrl": "https://demo.gymos.app/videos/rdl",
+    "description_ar": "تمرين لعزل الهامستر والأرداف",
+    "description_en": "Hip hinge movement isolating hamstrings and glutes"
+  },
+  {
+    "id": "ex_13",
+    "name_ar": "كرنش",
+    "name_en": "Crunch",
+    "muscleGroup": "CORE",
+    "targetMuscles": ["rectus_abdominis"],
+    "equipment": "Bodyweight",
+    "videoUrl": "https://demo.gymos.app/videos/crunch",
+    "description_ar": "تمرين أساسي لعضلات البطن العلوية",
+    "description_en": "Basic abdominal exercise targeting the upper rectus"
+  },
+  {
+    "id": "ex_14",
+    "name_ar": "بلانك",
+    "name_en": "Plank",
+    "muscleGroup": "CORE",
+    "targetMuscles": ["rectus_abdominis", "transverse_abdominis", "obliques"],
+    "equipment": "Bodyweight",
+    "videoUrl": "https://demo.gymos.app/videos/plank",
+    "description_ar": "تمرين ثبات لتقوية جميع عضلات الكور",
+    "description_en": "Isometric hold strengthening all core stabilizers"
+  },
+  {
+    "id": "ex_15",
+    "name_ar": "كيبل وود تشوب",
+    "name_en": "Cable Wood Chop",
+    "muscleGroup": "CORE",
+    "targetMuscles": ["obliques", "transverse_abdominis"],
+    "equipment": "Cable Machine",
+    "videoUrl": "https://demo.gymos.app/videos/wood-chop",
+    "description_ar": "تمرين دوراني لعضلات البطن الجانبية",
+    "description_en": "Rotational cable movement for oblique strength"
+  },
+  {
+    "id": "ex_16",
+    "name_ar": "انكلاين دمبل بريس",
+    "name_en": "Incline Dumbbell Press",
+    "muscleGroup": "CHEST",
+    "targetMuscles": ["upper_pectoralis", "anterior_deltoid", "triceps"],
+    "equipment": "Dumbbells + Incline Bench",
+    "videoUrl": "https://demo.gymos.app/videos/incline-db-press",
+    "description_ar": "بريس مائل لتطوير الجزء العلوي من الصدر",
+    "description_en": "Angled press emphasizing the upper chest"
+  },
+  {
+    "id": "ex_17",
+    "name_ar": "هامر كيرل",
+    "name_en": "Hammer Curl",
+    "muscleGroup": "ARMS",
+    "targetMuscles": ["brachialis", "brachioradialis"],
+    "equipment": "Dumbbells",
+    "videoUrl": "https://demo.gymos.app/videos/hammer-curl",
+    "description_ar": "تمرين بالدمبل لبناء سمك الذراع",
+    "description_en": "Neutral-grip curl for arm thickness and forearm"
+  },
+  {
+    "id": "ex_18",
+    "name_ar": "فيس بول",
+    "name_en": "Face Pull",
+    "muscleGroup": "SHOULDERS",
+    "targetMuscles": ["rear_deltoid", "rhomboids", "rotator_cuff"],
+    "equipment": "Cable Machine",
+    "videoUrl": "https://demo.gymos.app/videos/face-pull",
+    "description_ar": "تمرين لتقوية الكتف الخلفي والكفة المدورة",
+    "description_en": "Cable pull for rear delts and rotator cuff health"
+  },
+  {
+    "id": "ex_19",
+    "name_ar": "كاف ريز",
+    "name_en": "Standing Calf Raise",
+    "muscleGroup": "LEGS",
+    "targetMuscles": ["gastrocnemius", "soleus"],
+    "equipment": "Machine or Bodyweight",
+    "videoUrl": "https://demo.gymos.app/videos/calf-raise",
+    "description_ar": "تمرين لبناء عضلة الساق السفلية",
+    "description_en": "Calf isolation for gastrocnemius and soleus development"
+  },
+  {
+    "id": "ex_20",
+    "name_ar": "بول أب",
+    "name_en": "Pull-Up",
+    "muscleGroup": "BACK",
+    "targetMuscles": ["latissimus_dorsi", "biceps", "teres_major"],
+    "equipment": "Pull-Up Bar",
+    "videoUrl": "https://demo.gymos.app/videos/pull-up",
+    "description_ar": "تمرين وزن الجسم الأفضل لعضلة الظهر",
+    "description_en": "Bodyweight staple for back width and bicep strength"
+  }
+]

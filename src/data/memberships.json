@@ -1,0 +1,17 @@
+[
+  { "id": "ms-01", "memberId": "m-01", "planId": "plan-2", "startDate": "2026-04-01", "endDate": "2026-07-01", "stampsTotal": 30, "stampsUsed": 8,  "paymentId": "pay-01" },
+  { "id": "ms-02", "memberId": "m-02", "planId": "plan-2", "startDate": "2026-04-15", "endDate": "2026-06-04", "stampsTotal": 30, "stampsUsed": 22, "paymentId": "pay-02" },
+  { "id": "ms-03", "memberId": "m-03", "planId": "plan-1", "startDate": "2026-03-01", "endDate": "2026-03-31", "stampsTotal": 12, "stampsUsed": 12, "paymentId": "pay-03" },
+  { "id": "ms-04", "memberId": "m-04", "planId": "plan-3", "startDate": "2026-04-01", "endDate": "2026-07-15", "stampsTotal": 50, "stampsUsed": 15, "paymentId": "pay-04" },
+  { "id": "ms-05", "memberId": "m-05", "planId": "plan-2", "startDate": "2026-04-01", "endDate": "2026-07-01", "stampsTotal": 30, "stampsUsed": 3,  "paymentId": "pay-05" },
+  { "id": "ms-06", "memberId": "m-06", "planId": "plan-1", "startDate": "2026-04-10", "endDate": "2026-06-02", "stampsTotal": 12, "stampsUsed": 7,  "paymentId": "pay-06" },
+  { "id": "ms-07", "memberId": "m-07", "planId": "plan-3", "startDate": "2026-03-01", "endDate": "2026-05-30", "stampsTotal": 50, "stampsUsed": 44, "paymentId": "pay-07" },
+  { "id": "ms-08", "memberId": "m-08", "planId": "plan-2", "startDate": "2026-02-01", "endDate": "2026-04-02", "stampsTotal": 30, "stampsUsed": 18, "paymentId": "pay-08" },
+  { "id": "ms-09", "memberId": "m-09", "planId": "plan-1", "startDate": "2026-04-20", "endDate": "2026-06-01", "stampsTotal": 12, "stampsUsed": 9,  "paymentId": "pay-09" },
+  { "id": "ms-10", "memberId": "m-10", "planId": "plan-2", "startDate": "2026-04-01", "endDate": "2026-07-01", "stampsTotal": 30, "stampsUsed": 20, "paymentId": "pay-10" },
+  { "id": "ms-11", "memberId": "m-11", "planId": "plan-1", "startDate": "2026-03-15", "endDate": "2026-04-14", "stampsTotal": 12, "stampsUsed": 5,  "paymentId": "pay-11" },
+  { "id": "ms-12", "memberId": "m-12", "planId": "plan-3", "startDate": "2026-04-01", "endDate": "2026-07-15", "stampsTotal": 50, "stampsUsed": 2,  "paymentId": "pay-12" },
+  { "id": "ms-13", "memberId": "m-13", "planId": "plan-2", "startDate": "2026-02-15", "endDate": "2026-04-16", "stampsTotal": 30, "stampsUsed": 30, "paymentId": "pay-13" },
+  { "id": "ms-14", "memberId": "m-14", "planId": "plan-1", "startDate": "2026-05-20", "endDate": "2026-06-19", "stampsTotal": 12, "stampsUsed": 1,  "paymentId": "pay-14" },
+  { "id": "ms-15", "memberId": "m-15", "planId": "plan-2", "startDate": "2026-05-25", "endDate": "2026-07-24", "stampsTotal": 30, "stampsUsed": 0,  "paymentId": "pay-15" }
+]

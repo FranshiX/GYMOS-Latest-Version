@@ -1,0 +1,72 @@
+[
+  {
+    "id": "meas_01",
+    "memberId": "m_01",
+    "date": "2026-04-01",
+    "weight": 85.5,
+    "measurements": { "chest": 102, "waist": 86, "arms": 36, "thighs": 58 }
+  },
+  {
+    "id": "meas_02",
+    "memberId": "m_01",
+    "date": "2026-05-01",
+    "weight": 84.0,
+    "measurements": { "chest": 103, "waist": 84, "arms": 37, "thighs": 58 }
+  },
+  {
+    "id": "meas_03",
+    "memberId": "m_01",
+    "date": "2026-06-01",
+    "weight": 83.0,
+    "measurements": { "chest": 104, "waist": 82, "arms": 37.5, "thighs": 57 }
+  },
+  {
+    "id": "meas_04",
+    "memberId": "m_02",
+    "date": "2026-04-01",
+    "weight": 65.0,
+    "measurements": { "chest": 90, "waist": 72, "hips": 96, "thighs": 55 }
+  },
+  {
+    "id": "meas_05",
+    "memberId": "m_02",
+    "date": "2026-05-01",
+    "weight": 64.0,
+    "measurements": { "chest": 90, "waist": 70, "hips": 95, "thighs": 54 }
+  },
+  {
+    "id": "meas_06",
+    "memberId": "m_02",
+    "date": "2026-06-01",
+    "weight": 63.2,
+    "measurements": { "chest": 89, "waist": 69, "hips": 94, "thighs": 53.5 }
+  },
+  {
+    "id": "meas_07",
+    "memberId": "m_03",
+    "date": "2026-05-01",
+    "weight": 72.0,
+    "measurements": { "chest": 95, "waist": 80 }
+  },
+  {
+    "id": "meas_08",
+    "memberId": "m_03",
+    "date": "2026-06-01",
+    "weight": 71.5,
+    "measurements": { "chest": 95, "waist": 79 }
+  },
+  {
+    "id": "meas_09",
+    "memberId": "m_04",
+    "date": "2026-05-15",
+    "weight": 90.0,
+    "measurements": { "chest": 108, "waist": 95, "arms": 38 }
+  },
+  {
+    "id": "meas_10",
+    "memberId": "m_04",
+    "date": "2026-06-01",
+    "weight": 89.0,
+    "measurements": { "chest": 108, "waist": 93, "arms": 38.5 }
+  }
+]

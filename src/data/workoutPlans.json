@@ -1,0 +1,171 @@
+[
+  {
+    "id": "plan_01",
+    "name_ar": "برنامج المبتدئين - 3 أيام",
+    "name_en": "Beginner Full Body - 3 Days",
+    "type": "GENERAL",
+    "days": [
+      {
+        "id": "day_01_1",
+        "dayNumber": 1,
+        "name_ar": "اليوم الأول - جسم كامل",
+        "name_en": "Day 1 - Full Body",
+        "exercises": [
+          { "id": "we_01", "exerciseId": "ex_10", "sets": 3, "reps": 8, "restSeconds": 90 },
+          { "id": "we_02", "exerciseId": "ex_01", "sets": 3, "reps": 8, "restSeconds": 90 },
+          { "id": "we_03", "exerciseId": "ex_04", "sets": 3, "reps": 10, "restSeconds": 60 },
+          { "id": "we_04", "exerciseId": "ex_13", "sets": 3, "reps": 15, "restSeconds": 45 }
+        ]
+      },
+      {
+        "id": "day_01_2",
+        "dayNumber": 2,
+        "name_ar": "اليوم الثاني - جسم كامل",
+        "name_en": "Day 2 - Full Body",
+        "exercises": [
+          { "id": "we_05", "exerciseId": "ex_03", "sets": 3, "reps": 6, "restSeconds": 120 },
+          { "id": "we_06", "exerciseId": "ex_06", "sets": 3, "reps": 8, "restSeconds": 90 },
+          { "id": "we_07", "exerciseId": "ex_08", "sets": 3, "reps": 10, "restSeconds": 60 },
+          { "id": "we_08", "exerciseId": "ex_14", "sets": 3, "reps": 30, "restSeconds": 45, "notes": "30 ثانية لكل سيت" }
+        ]
+      },
+      {
+        "id": "day_01_3",
+        "dayNumber": 3,
+        "name_ar": "اليوم الثالث - جسم كامل",
+        "name_en": "Day 3 - Full Body",
+        "exercises": [
+          { "id": "we_09", "exerciseId": "ex_11", "sets": 3, "reps": 10, "restSeconds": 90 },
+          { "id": "we_10", "exerciseId": "ex_16", "sets": 3, "reps": 10, "restSeconds": 75 },
+          { "id": "we_11", "exerciseId": "ex_05", "sets": 3, "reps": 12, "restSeconds": 60 },
+          { "id": "we_12", "exerciseId": "ex_09", "sets": 3, "reps": 12, "restSeconds": 45 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plan_02",
+    "name_ar": "برنامج متوسط - تقسيم Push/Pull/Legs",
+    "name_en": "Intermediate Push/Pull/Legs Split",
+    "type": "GENERAL",
+    "days": [
+      {
+        "id": "day_02_1",
+        "dayNumber": 1,
+        "name_ar": "يوم الدفع - صدر وكتف وتراي",
+        "name_en": "Push Day - Chest / Shoulders / Triceps",
+        "exercises": [
+          { "id": "we_13", "exerciseId": "ex_01", "sets": 4, "reps": 8, "restSeconds": 90 },
+          { "id": "we_14", "exerciseId": "ex_16", "sets": 3, "reps": 10, "restSeconds": 75 },
+          { "id": "we_15", "exerciseId": "ex_02", "sets": 3, "reps": 12, "restSeconds": 60 },
+          { "id": "we_16", "exerciseId": "ex_06", "sets": 3, "reps": 10, "restSeconds": 75 },
+          { "id": "we_17", "exerciseId": "ex_07", "sets": 3, "reps": 15, "restSeconds": 45 },
+          { "id": "we_18", "exerciseId": "ex_09", "sets": 3, "reps": 12, "restSeconds": 60 }
+        ]
+      },
+      {
+        "id": "day_02_2",
+        "dayNumber": 2,
+        "name_ar": "يوم السحب - ظهر وبايسبس",
+        "name_en": "Pull Day - Back / Biceps",
+        "exercises": [
+          { "id": "we_19", "exerciseId": "ex_20", "sets": 4, "reps": 6, "restSeconds": 120 },
+          { "id": "we_20", "exerciseId": "ex_03", "sets": 3, "reps": 5, "restSeconds": 120 },
+          { "id": "we_21", "exerciseId": "ex_04", "sets": 3, "reps": 10, "restSeconds": 75 },
+          { "id": "we_22", "exerciseId": "ex_05", "sets": 3, "reps": 12, "restSeconds": 60 },
+          { "id": "we_23", "exerciseId": "ex_08", "sets": 3, "reps": 10, "restSeconds": 60 },
+          { "id": "we_24", "exerciseId": "ex_17", "sets": 3, "reps": 12, "restSeconds": 45 }
+        ]
+      },
+      {
+        "id": "day_02_3",
+        "dayNumber": 3,
+        "name_ar": "يوم الأرجل",
+        "name_en": "Leg Day",
+        "exercises": [
+          { "id": "we_25", "exerciseId": "ex_10", "sets": 4, "reps": 8, "restSeconds": 120 },
+          { "id": "we_26", "exerciseId": "ex_12", "sets": 3, "reps": 10, "restSeconds": 90 },
+          { "id": "we_27", "exerciseId": "ex_11", "sets": 3, "reps": 12, "restSeconds": 75 },
+          { "id": "we_28", "exerciseId": "ex_19", "sets": 4, "reps": 15, "restSeconds": 45 }
+        ]
+      },
+      {
+        "id": "day_02_4",
+        "dayNumber": 4,
+        "name_ar": "يوم الكور والكتف الخلفي",
+        "name_en": "Core & Rear Delts",
+        "exercises": [
+          { "id": "we_29", "exerciseId": "ex_18", "sets": 4, "reps": 15, "restSeconds": 45 },
+          { "id": "we_30", "exerciseId": "ex_14", "sets": 4, "reps": 40, "restSeconds": 30, "notes": "40 ثانية" },
+          { "id": "we_31", "exerciseId": "ex_15", "sets": 3, "reps": 12, "restSeconds": 60 },
+          { "id": "we_32", "exerciseId": "ex_13", "sets": 3, "reps": 20, "restSeconds": 45 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plan_03",
+    "name_ar": "برنامج خاص - أحمد الكعبي",
+    "name_en": "Custom Plan - Ahmed Al-Kaabi",
+    "type": "CUSTOM",
+    "assignedMemberId": "m_01",
+    "days": [
+      {
+        "id": "day_03_1",
+        "dayNumber": 1,
+        "name_ar": "صدر وتراي",
+        "name_en": "Chest & Triceps",
+        "exercises": [
+          { "id": "we_33", "exerciseId": "ex_01", "sets": 4, "reps": 6, "restSeconds": 120, "notes": "وزن تنافسي" },
+          { "id": "we_34", "exerciseId": "ex_16", "sets": 3, "reps": 10, "restSeconds": 90 },
+          { "id": "we_35", "exerciseId": "ex_02", "sets": 3, "reps": 12, "restSeconds": 60 },
+          { "id": "we_36", "exerciseId": "ex_09", "sets": 4, "reps": 10, "restSeconds": 60 }
+        ]
+      },
+      {
+        "id": "day_03_2",
+        "dayNumber": 2,
+        "name_ar": "ظهر وبايسبس",
+        "name_en": "Back & Biceps",
+        "exercises": [
+          { "id": "we_37", "exerciseId": "ex_20", "sets": 4, "reps": 8, "restSeconds": 90 },
+          { "id": "we_38", "exerciseId": "ex_04", "sets": 4, "reps": 10, "restSeconds": 75 },
+          { "id": "we_39", "exerciseId": "ex_05", "sets": 3, "reps": 12, "restSeconds": 60 },
+          { "id": "we_40", "exerciseId": "ex_08", "sets": 4, "reps": 10, "restSeconds": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plan_04",
+    "name_ar": "برنامج خاص - سارة العمري",
+    "name_en": "Custom Plan - Sara Al-Omari",
+    "type": "CUSTOM",
+    "assignedMemberId": "m_02",
+    "days": [
+      {
+        "id": "day_04_1",
+        "dayNumber": 1,
+        "name_ar": "أرجل وأرداف",
+        "name_en": "Legs & Glutes",
+        "exercises": [
+          { "id": "we_41", "exerciseId": "ex_11", "sets": 4, "reps": 12, "restSeconds": 75 },
+          { "id": "we_42", "exerciseId": "ex_12", "sets": 3, "reps": 12, "restSeconds": 75 },
+          { "id": "we_43", "exerciseId": "ex_19", "sets": 4, "reps": 20, "restSeconds": 45 }
+        ]
+      },
+      {
+        "id": "day_04_2",
+        "dayNumber": 2,
+        "name_ar": "كور وجسم علوي",
+        "name_en": "Core & Upper Body",
+        "exercises": [
+          { "id": "we_44", "exerciseId": "ex_14", "sets": 4, "reps": 45, "restSeconds": 30, "notes": "45 ثانية" },
+          { "id": "we_45", "exerciseId": "ex_13", "sets": 3, "reps": 20, "restSeconds": 45 },
+          { "id": "we_46", "exerciseId": "ex_07", "sets": 3, "reps": 15, "restSeconds": 45 },
+          { "id": "we_47", "exerciseId": "ex_18", "sets": 3, "reps": 15, "restSeconds": 45 }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "log_01",
+    "memberId": "m_01",
+    "workoutPlanId": "plan_03",
+    "workoutDayId": "day_03_1",
+    "date": "2026-05-28",
+    "exercises": [
+      {
+        "id": "elog_01",
+        "exerciseId": "ex_01",
+        "sets": [
+          { "setNumber": 1, "weight": 80, "reps": 6, "completed": true },
+          { "setNumber": 2, "weight": 80, "reps": 6, "completed": true },
+          { "setNumber": 3, "weight": 75, "reps": 6, "completed": true },
+          { "setNumber": 4, "weight": 75, "reps": 5, "completed": true }
+        ]
+      },
+      {
+        "id": "elog_02",
+        "exerciseId": "ex_16",
+        "sets": [
+          { "setNumber": 1, "weight": 30, "reps": 10, "completed": true },
+          { "setNumber": 2, "weight": 30, "reps": 10, "completed": true },
+          { "setNumber": 3, "weight": 28, "reps": 10, "completed": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "log_02",
+    "memberId": "m_01",
+    "workoutPlanId": "plan_03",
+    "workoutDayId": "day_03_2",
+    "date": "2026-05-30",
+    "exercises": [
+      {
+        "id": "elog_03",
+        "exerciseId": "ex_20",
+        "sets": [
+          { "setNumber": 1, "weight": 0, "reps": 8, "completed": true },
+          { "setNumber": 2, "weight": 0, "reps": 7, "completed": true },
+          { "setNumber": 3, "weight": 0, "reps": 6, "completed": true },
+          { "setNumber": 4, "weight": 0, "reps": 6, "completed": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "log_03",
+    "memberId": "m_01",
+    "workoutPlanId": "plan_03",
+    "workoutDayId": "day_03_1",
+    "date": "2026-06-02",
+    "exercises": [
+      {
+        "id": "elog_04",
+        "exerciseId": "ex_01",
+        "sets": [
+          { "setNumber": 1, "weight": 82.5, "reps": 6, "completed": true },
+          { "setNumber": 2, "weight": 82.5, "reps": 6, "completed": true },
+          { "setNumber": 3, "weight": 80, "reps": 6, "completed": true },
+          { "setNumber": 4, "weight": 80, "reps": 6, "completed": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "log_04",
+    "memberId": "m_02",
+    "workoutPlanId": "plan_04",
+    "workoutDayId": "day_04_1",
+    "date": "2026-05-27",
+    "exercises": [
+      {
+        "id": "elog_05",
+        "exerciseId": "ex_11",
+        "sets": [
+          { "setNumber": 1, "weight": 60, "reps": 12, "completed": true },
+          { "setNumber": 2, "weight": 60, "reps": 12, "completed": true },
+          { "setNumber": 3, "weight": 65, "reps": 10, "completed": true },
+          { "setNumber": 4, "weight": 65, "reps": 10, "completed": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "log_05",
+    "memberId": "m_02",
+    "workoutPlanId": "plan_04",
+    "workoutDayId": "day_04_2",
+    "date": "2026-05-29",
+    "exercises": [
+      {
+        "id": "elog_06",
+        "exerciseId": "ex_14",
+        "sets": [
+          { "setNumber": 1, "weight": 0, "reps": 45, "completed": true },
+          { "setNumber": 2, "weight": 0, "reps": 45, "completed": true },
+          { "setNumber": 3, "weight": 0, "reps": 40, "completed": true },
+          { "setNumber": 4, "weight": 0, "reps": 40, "completed": false }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "log_06",
+    "memberId": "m_03",
+    "workoutPlanId": "plan_01",
+    "workoutDayId": "day_01_1",
+    "date": "2026-06-01",
+    "exercises": [
+      {
+        "id": "elog_07",
+        "exerciseId": "ex_10",
+        "sets": [
+          { "setNumber": 1, "weight": 50, "reps": 8, "completed": true },
+          { "setNumber": 2, "weight": 50, "reps": 8, "completed": true },
+          { "setNumber": 3, "weight": 50, "reps": 7, "completed": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "log_07",
+    "memberId": "m_03",
+    "workoutPlanId": "plan_01",
+    "workoutDayId": "day_01_2",
+    "date": "2026-06-03",
+    "exercises": [
+      {
+        "id": "elog_08",
+        "exerciseId": "ex_03",
+        "sets": [
+          { "setNumber": 1, "weight": 60, "reps": 6, "completed": true },
+          { "setNumber": 2, "weight": 60, "reps": 6, "completed": true },
+          { "setNumber": 3, "weight": 60, "reps": 5, "completed": true }
+        ]
+      }
+    ]
+  }
+]

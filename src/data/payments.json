@@ -1,0 +1,22 @@
+[
+  { "id": "pay-01", "memberId": "m-01", "amount": 25, "date": "2026-04-01", "type": "RENEWAL" },
+  { "id": "pay-02", "memberId": "m-02", "amount": 25, "date": "2026-04-15", "type": "RENEWAL" },
+  { "id": "pay-03", "memberId": "m-03", "amount": 15, "date": "2026-03-01", "type": "NEW" },
+  { "id": "pay-04", "memberId": "m-04", "amount": 40, "date": "2026-04-01", "type": "NEW" },
+  { "id": "pay-05", "memberId": "m-05", "amount": 25, "date": "2026-04-01", "type": "NEW" },
+  { "id": "pay-06", "memberId": "m-06", "amount": 15, "date": "2026-04-10", "type": "RENEWAL" },
+  { "id": "pay-07", "memberId": "m-07", "amount": 40, "date": "2026-03-01", "type": "NEW" },
+  { "id": "pay-08", "memberId": "m-08", "amount": 25, "date": "2026-02-01", "type": "NEW" },
+  { "id": "pay-09", "memberId": "m-09", "amount": 15, "date": "2026-04-20", "type": "RENEWAL" },
+  { "id": "pay-10", "memberId": "m-10", "amount": 25, "date": "2026-04-01", "type": "NEW" },
+  { "id": "pay-11", "memberId": "m-11", "amount": 15, "date": "2026-03-15", "type": "NEW" },
+  { "id": "pay-12", "memberId": "m-12", "amount": 40, "date": "2026-04-01", "type": "NEW" },
+  { "id": "pay-13", "memberId": "m-13", "amount": 25, "date": "2026-02-15", "type": "NEW" },
+  { "id": "pay-14", "memberId": "m-14", "amount": 15, "date": "2026-05-20", "type": "NEW" },
+  { "id": "pay-15", "memberId": "m-15", "amount": 25, "date": "2026-05-25", "type": "NEW" },
+  { "id": "pay-16", "memberId": "m-01", "amount": 25, "date": "2026-01-01", "type": "NEW" },
+  { "id": "pay-17", "memberId": "m-02", "amount": 25, "date": "2026-01-15", "type": "NEW" },
+  { "id": "pay-18", "memberId": "m-06", "amount": 15, "date": "2026-03-10", "type": "NEW" },
+  { "id": "pay-19", "memberId": "m-09", "amount": 15, "date": "2026-03-20", "type": "NEW" },
+  { "id": "pay-20", "memberId": "m-07", "amount": 40, "date": "2026-01-15", "type": "NEW" }
+]

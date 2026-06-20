@@ -1,0 +1,23 @@
+[
+  {
+    "id": "plan-1",
+    "name": "Basic",
+    "durationDays": 30,
+    "stampsTotal": 12,
+    "price": 15
+  },
+  {
+    "id": "plan-2",
+    "name": "Standard",
+    "durationDays": 60,
+    "stampsTotal": 30,
+    "price": 25
+  },
+  {
+    "id": "plan-3",
+    "name": "Premium",
+    "durationDays": 90,
+    "stampsTotal": 50,
+    "price": 40
+  }
+]
