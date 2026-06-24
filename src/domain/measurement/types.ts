@@ -1,6 +1,7 @@
 export interface BodyMeasurements {
   chest?: number
   waist?: number
+  bodyFat?: number
   hips?: number
   arms?: number
   thighs?: number

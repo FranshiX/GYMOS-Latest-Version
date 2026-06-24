@@ -57,6 +57,7 @@ export function MeasurementsScreen() {
       measurements: {
         ...(form.chest ? { chest: Number(form.chest) } : {}),
         ...(form.waist ? { waist: Number(form.waist) } : {}),
+        ...(form.bodyFat ? { bodyFat: Number(form.bodyFat) } : {}),
         ...(form.hips  ? { hips:  Number(form.hips)  } : {}),
       },
     })
