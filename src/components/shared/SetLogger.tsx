@@ -3,8 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, Plus } from 'lucide-react'
 import { checkVariants } from '@/utils/variants'
+import { useWorkoutLogStore } from '@/store/useWorkoutLogStore'
 
 interface SetLoggerProps {
+  sessionId?: string
+  exerciseId?: string
   onComplete?: () => void
   targetSets?: number
   targetReps?: number
@@ -17,9 +20,11 @@ interface SetRow {
   completed: boolean
 }
 
-export function SetLogger({ onComplete, targetSets = 3, targetReps = 10 }: SetLoggerProps) {
+export function SetLogger({ sessionId, exerciseId, onComplete, targetSets = 3, targetReps = 10 }: SetLoggerProps) {
   const { i18n } = useTranslation()
   const isAr = i18n.language === 'ar'
+  const updateSetLog = useWorkoutLogStore((s: any) => s.updateSetLog)
+  const addExerciseLog = useWorkoutLogStore((s: any) => s.addExerciseLog)
 
   const [rows, setRows] = useState<SetRow[]>(() => 
     Array.from({ length: targetSets }, (_, i) => ({
@@ -38,19 +43,61 @@ export function SetLogger({ onComplete, targetSets = 3, targetReps = 10 }: SetLo
     }
   }, [allCompleted, onComplete])
 
+  // Ensure exercise log exists in the session
+  useEffect(() => {
+    if (sessionId && exerciseId) {
+      // Add exercise log if not already present
+      addExerciseLog(sessionId, {
+        exerciseId,
+        sets: rows.map(r => ({
+          setNumber: r.setNumber,
+          weight: r.weight,
+          reps: r.reps,
+          completed: r.completed,
+        })),
+      })
+    }
+  }, [sessionId, exerciseId])
+
   const update = (index: number, field: 'weight' | 'reps', value: number) => {
-    setRows(prev => prev.map((r, i) => i === index ? { ...r, [field]: value, completed: false } : r))
+    setRows(prev => {
+      const updated = prev.map((r, i) => {
+        if (i !== index) return r
+        const newRow = { ...r, [field]: value, completed: false }
+        
+        // Write to store when weight or reps change
+        if (sessionId && exerciseId) {
+          updateSetLog(
+            sessionId,
+            exerciseId,
+            r.setNumber,
+            { weight: newRow.weight, reps: newRow.reps, completed: false }
+          )
+        }
+        
+        return newRow
+      })
+      return updated
+    })
   }
 
   const toggleComplete = (index: number) => {
     setRows(prev => prev.map((r, i) => {
       if (i !== index) return r
       const newCompleted = !r.completed
-      if (newCompleted && r.weight === 0) {
-        // Auto-set a default weight if completing without weight
-        return { ...r, weight: 20, completed: newCompleted }
+      const newWeight = (newCompleted && r.weight === 0) ? 20 : r.weight
+      
+      // Write to store when set is completed or uncompleted
+      if (sessionId && exerciseId) {
+        updateSetLog(
+          sessionId,
+          exerciseId,
+          r.setNumber,
+          { weight: newWeight, reps: r.reps, completed: newCompleted }
+        )
       }
-      return { ...r, completed: newCompleted }
+      
+      return { ...r, weight: newWeight, completed: newCompleted }
     }))
   }
 

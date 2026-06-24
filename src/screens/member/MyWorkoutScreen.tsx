@@ -106,17 +106,18 @@ export function MyWorkoutScreen() {
 
   const planName = isAr ? activePlan.name_ar : activePlan.name_en;
   const totalSessions = activePlan.days.length;
-  const completedSessions = logs.filter((log: any) => log.programId === activePlan.id).length;
+  const completedSessions = logs.filter((log: any) => log.workoutPlanId === activePlan.id && log.completedAt).length;
   const totalExercisesCompleted = logs.reduce((acc: number, log: any) => 
     acc + log.exercises.length, 0
   );
   const progress = totalSessions > 0 ? (completedSessions / totalSessions) * 100 : 0;
 
-  // Determine current day (first uncompleted day)
+  // Determine current day (first uncompleted day, or cycle to day 1 if all completed)
   const currentDayIndex = activePlan.days.findIndex((day: any) => {
-    return !logs.some((log: any) => log.workoutDayId === day.id);
+    return !logs.some((log: any) => log.workoutDayId === day.id && log.completedAt);
   });
-  const currentDayIndexFinal = currentDayIndex === -1 ? activePlan.days.length - 1 : Math.max(0, currentDayIndex);
+  const allDaysCompleted = currentDayIndex === -1;
+  const currentDayIndexFinal = allDaysCompleted ? 0 : Math.max(0, currentDayIndex);
 
   return (
     <motion.div
@@ -190,6 +191,23 @@ export function MyWorkoutScreen() {
           </div>
         </Card>
 
+        {/* Cycle Complete State */}
+        {allDaysCompleted && (
+          <Card variant="elevated" padding="lg">
+            <div className="flex items-center gap-4">
+              <CheckCircle size={32} style={{ color: 'var(--color-success)' }} />
+              <div>
+                <p className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+                  {t('workout.cycle_complete')}
+                </p>
+                <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                  {t('workout.restarting_day_1')}
+                </p>
+              </div>
+            </div>
+          </Card>
+        )}
+
         {/* Workout Days Timeline */}
         <div>
           <p
@@ -250,6 +268,11 @@ export function MyWorkoutScreen() {
                       <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-tertiary)' }}>
                         {day.exercises.length} {t('workout.exercises')}
                       </p>
+                      {isUpcoming && (
+                        <div className="flex items-center gap-1 mt-1" style={{ color: 'var(--color-text-tertiary)' }}>
+                          <span className="text-xs">{t('workout.complete_previous_first')}</span>
+                        </div>
+                      )}
                     </div>
                     {isCurrent && (
                       <Button

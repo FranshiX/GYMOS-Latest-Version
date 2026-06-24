@@ -18,4 +18,5 @@ export interface WorkoutLog {
   workoutDayId: string
   date: string
   exercises: ExerciseLog[]
+  completedAt?: string
 }

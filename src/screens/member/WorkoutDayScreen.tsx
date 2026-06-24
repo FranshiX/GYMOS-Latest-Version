@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,26 +20,48 @@ const WorkoutDayScreen = () => {
   const isAr = i18n.language === 'ar';
 
   const { plans } = useWorkoutPlanStore();
-  const { getLogsForMember } = useWorkoutLogStore();
+  const { getLogsForMember, startLog, finishLog } = useWorkoutLogStore();
   const { exercises } = useExerciseStore();
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [completedExercises, setCompletedExercises] = useState<Set<string>>(new Set());
   const [collapsedExercises, setCollapsedExercises] = useState<Set<string>>(new Set());
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const sessionStartedRef = useRef(false);
 
   const day = useMemo(() => {
     for (const plan of plans) {
       const found = plan.days.find((d: any) => d.id === dayId);
-      if (found) return found;
+      if (found) return { ...found, planId: plan.id } as { planId: string; [key: string]: any };
     }
     return null;
   }, [plans, dayId]);
 
-  const todayLogs = useMemo(() => {
-    if (!phone) return [];
-    const today = new Date().toISOString().slice(0, 10);
-    return getLogsForMember(phone).filter((log: any) => log.date.slice(0, 10) === today);
-  }, [phone, getLogsForMember]);
+  // Start workout session on mount
+  useEffect(() => {
+    if (!phone || !day || sessionStartedRef.current) return;
+    sessionStartedRef.current = true;
+    const planId = (day as { planId: string }).planId;
+    // @ts-ignore - planId is guaranteed to be string by the type assertion above
+    const session = startLog(phone, planId, dayId);
+    setSessionId(session.id);
+  }, [phone, day, dayId, startLog]);
+
+  // Session timer - starts when sessionId is set
+  useEffect(() => {
+    if (!sessionId) return;
+    const interval = setInterval(() => {
+      setElapsedSeconds(prev => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [sessionId]);
+
+  const formatTime = (totalSeconds: number) => {
+    const min = Math.floor(totalSeconds / 60);
+    const sec = totalSeconds % 60;
+    return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  };
 
   const getExerciseName = useCallback((exerciseId: string) => {
     const ex = exercises.find((e: any) => e.id === exerciseId);
@@ -48,17 +70,27 @@ const WorkoutDayScreen = () => {
   }, [exercises, isAr]);
 
   const getLastSessionData = useCallback((exerciseId: string) => {
-    const previousLogs = todayLogs.filter((log: any) => 
+    const today = new Date().toISOString().split('T')[0];
+    const allLogs = getLogsForMember(phone || '');
+
+    // Filter to logs from previous days that are completed
+    const previousLogs = allLogs.filter((log: any) =>
+      log.date !== today &&
+      log.completedAt &&
       log.exercises.some((ex: any) => ex.exerciseId === exerciseId)
     );
+
     if (previousLogs.length === 0) return null;
-    
-    const lastLog = previousLogs[previousLogs.length - 1];
+
+    // Sort by date descending (most recent first)
+    previousLogs.sort((a: any, b: any) => b.date.localeCompare(a.date));
+
+    const lastLog = previousLogs[0];
     const exerciseData = lastLog.exercises.find((ex: any) => ex.exerciseId === exerciseId);
     if (!exerciseData) return null;
-    
+
     return exerciseData.sets;
-  }, [todayLogs]);
+  }, [phone, getLogsForMember]);
 
   const handleExerciseComplete = useCallback((exerciseId: string) => {
     setCompletedExercises(prev => new Set(prev).add(exerciseId));
@@ -99,6 +131,21 @@ const WorkoutDayScreen = () => {
   const completedCount = completedExercises.size;
   const progress = totalExercises > 0 ? (completedCount / totalExercises) * 100 : 0;
 
+  // Check if all exercises are completed
+  const allExercisesComplete = day.exercises.length > 0 &&
+    day.exercises.every((we: any) => completedExercises.has(we.exerciseId));
+
+  // Auto-navigate to SessionCompleteScreen when all exercises are done
+  useEffect(() => {
+    if (allExercisesComplete && sessionId) {
+      finishLog(sessionId);
+      navigate(`/member/${phone}/workout/${dayId}/complete`, {
+        state: { elapsedSeconds },
+        replace: true
+      });
+    }
+  }, [allExercisesComplete, sessionId, phone, dayId, elapsedSeconds, navigate, finishLog]);
+
   return (
     <motion.div
       initial="initial"
@@ -132,7 +179,7 @@ const WorkoutDayScreen = () => {
         </div>
         <div className="flex items-center gap-2">
           <Clock size={16} strokeWidth={1.5} style={{ color: 'var(--color-text-secondary)' }} />
-          <span className="text-sm font-mono">--:--</span>
+          <span className="text-sm font-mono">{formatTime(elapsedSeconds)}</span>
         </div>
       </div>
 
@@ -209,6 +256,8 @@ const WorkoutDayScreen = () => {
                   {/* Set Logger - Only show for current exercise */}
                   {isCurrent && !isCompleted && (
                     <SetLogger
+                      sessionId={sessionId || undefined}
+                      exerciseId={we.exerciseId}
                       targetSets={we.sets}
                       targetReps={we.reps}
                       onComplete={() => handleExerciseComplete(we.exerciseId)}

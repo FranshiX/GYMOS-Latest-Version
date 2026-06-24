@@ -15,6 +15,7 @@ import { MemberProfileScreen }   from '../screens/member/MemberProfileScreen'
 import { MyWorkoutScreen }       from '../screens/member/MyWorkoutScreen'
 import WorkoutDayScreen          from '../screens/member/WorkoutDayScreen'      // default import
 import ExerciseDetailScreen      from '../screens/member/ExerciseDetailScreen'  // default import
+import SessionCompleteScreen     from '../screens/member/SessionCompleteScreen' // default import
 import { MyProgressScreen }      from '../screens/member/MyProgressScreen'
 import { MeasurementsScreen }    from '../screens/member/MeasurementsScreen'
 
@@ -37,12 +38,13 @@ export function Router() {
       </Route>
 
       <Route path="/member/:phone" element={<AppShell />}>
-        <Route index                 element={<MemberProfileScreen />} />
-        <Route path="workout"        element={<MyWorkoutScreen />} />
-        <Route path="workout/:dayId" element={<WorkoutDayScreen />} />
-        <Route path="exercise/:id"   element={<ExerciseDetailScreen />} />
-        <Route path="progress"       element={<MyProgressScreen />} />
-        <Route path="measurements"   element={<MeasurementsScreen />} />
+        <Route index                      element={<MemberProfileScreen />} />
+        <Route path="workout"             element={<MyWorkoutScreen />} />
+        <Route path="workout/:dayId"      element={<WorkoutDayScreen />} />
+        <Route path="workout/:dayId/complete" element={<SessionCompleteScreen />} />
+        <Route path="exercise/:id"        element={<ExerciseDetailScreen />} />
+        <Route path="progress"            element={<MyProgressScreen />} />
+        <Route path="measurements"        element={<MeasurementsScreen />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { TrendingUp, Clock, Dumbbell, CheckCircle, ChevronLeft } from 'lucide-react';
@@ -13,6 +13,7 @@ import { ProgressRing } from '@/components/ui/ProgressRing';
 const SessionCompleteScreen = () => {
   const { phone, dayId } = useParams<{ phone: string; dayId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
 
@@ -40,15 +41,16 @@ const SessionCompleteScreen = () => {
 
     const log = todayLogs[0];
     const totalSets = log.exercises.reduce((acc: number, ex: any) => acc + ex.sets.length, 0);
-    const completedSets = log.exercises.reduce((acc: number, ex: any) => 
+    const completedSets = log.exercises.reduce((acc: number, ex: any) =>
       acc + ex.sets.filter((s: any) => s.completed).length, 0
     );
-    const totalVolume = log.exercises.reduce((acc: number, ex: any) => 
+    const totalVolume = log.exercises.reduce((acc: number, ex: any) =>
       acc + ex.sets.reduce((setAcc: number, s: any) => setAcc + (s.weight * s.reps), 0), 0
     );
-    
-    // Calculate duration (mock - in real app would track start/end time)
-    const duration = Math.floor(totalSets * 3); // Assume 3 min per set
+
+    // Get real duration from route state (passed from WorkoutDayScreen)
+    const elapsedSeconds = location.state?.elapsedSeconds;
+    const duration = elapsedSeconds !== undefined ? Math.round(elapsedSeconds / 60) : null;
 
     return {
       duration,
@@ -58,7 +60,7 @@ const SessionCompleteScreen = () => {
       totalSets,
       completedSets,
     };
-  }, [todayLogs, day]);
+  }, [todayLogs, day, location.state]);
 
   const dayName = useMemo(() => {
     if (!day) return '';
@@ -172,7 +174,7 @@ const SessionCompleteScreen = () => {
               </span>
             </div>
             <div className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-              {sessionStats.duration} {t('common.min')}
+              {sessionStats.duration !== null ? `${sessionStats.duration} ${t('common.min')}` : '--'}
             </div>
           </Card>
 
