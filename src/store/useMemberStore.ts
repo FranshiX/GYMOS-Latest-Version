@@ -35,14 +35,18 @@ export const useMemberStore = create(
       },
 
       updateActiveMembership: (memberId: string, membershipId: string) => {
-        set((state: MemberStore) => ({
-          members: state.members.map((m: Member) =>
+        set((state: MemberStore) => {
+          const members = state.members.map((m: Member) =>
             m.id === memberId
               ? { ...m, activeMembershipId: membershipId }
               : m
-          ),
-        }))
-      },
+          )
+          const selectedMember = state.selectedMember && state.selectedMember.id === memberId
+            ? members.find(m => m.id === memberId) ?? null
+            : state.selectedMember
+          return { members, selectedMember }
+        })
+      }, 
     }),
     {
       name: 'gymos-members',

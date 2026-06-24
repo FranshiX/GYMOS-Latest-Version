@@ -116,7 +116,7 @@ export function MemberProfileScreen() {
 
   const myCheckins = checkins
     .filter((c: any) => c.memberId === member.id && c.result === 'GRANTED')
-    .sort((a: any, b: any) => b.timestamp.localeCompare(a.timestamp))
+    .sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
     .slice(0, 6)
 
   const streak       = getStreakForMember(member.id)
