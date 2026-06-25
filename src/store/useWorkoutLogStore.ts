@@ -66,6 +66,11 @@ export const useWorkoutLogStore = create<WorkoutLogStore>()(
 
         if (completedSessions.length === 0) return 0
 
+        // Check if the most recent session is within 48 hours of now
+        const now = new Date()
+        const hoursSinceLastSession = (now.getTime() - new Date(completedSessions[0].completedAt!).getTime()) / (1000 * 60 * 60)
+        if (hoursSinceLastSession > 48) return 0
+
         let streak = 1
         for (let i = 0; i < completedSessions.length - 1; i++) {
           const current = new Date(completedSessions[i].completedAt!)

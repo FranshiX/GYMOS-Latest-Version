@@ -1,11 +1,12 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import { Dumbbell, TrendingUp, Calendar, Activity } from 'lucide-react'
+import { Dumbbell, TrendingUp, Calendar, Activity, Flame } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { StampBar } from '@/components/shared/StampBar'
+import { KPICard } from '@/components/shared/KPICard'
 import { useMemberStore } from '@/store/useMemberStore'
 import { useMembershipStore } from '@/store/useMembershipStore'
 import { useCheckinStore } from '@/store/useCheckinStore'
@@ -141,6 +142,7 @@ export function MemberProfileScreen() {
       transition={pageTransition}
       className="flex flex-col gap-4 pb-4"
       dir={dir}
+      data-screen="member-profile"
       style={{ background: 'var(--color-bg-base)' }}
     >
 
@@ -196,38 +198,24 @@ export function MemberProfileScreen() {
 
       {/* Quick stats */}
       <div className="grid grid-cols-3 gap-3">
-        {/* Days left */}
-        <Card variant="default" padding="sm" className="flex flex-col items-center gap-1">
-          <Calendar size={14} strokeWidth={1.5} style={{ color: 'var(--color-secondary)' }} />
-          <span className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-            {dates?.daysLeft ?? 0}
-          </span>
-          <span className="text-xs text-center leading-tight" style={{ color: 'var(--color-text-tertiary)' }}>
-            {t('members.days_remaining')}
-          </span>
-        </Card>
-
-        {/* Streak */}
-        <Card variant="default" padding="sm" className="flex flex-col items-center gap-1">
-          <span className="text-base">🔥</span>
-          <span className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-            {streak}
-          </span>
-          <span className="text-xs text-center leading-tight" style={{ color: 'var(--color-text-tertiary)' }}>
-            {t('workout.streak')}
-          </span>
-        </Card>
-
-        {/* Total sessions */}
-        <Card variant="default" padding="sm" className="flex flex-col items-center gap-1">
-          <Activity size={14} strokeWidth={1.5} style={{ color: 'var(--color-success)' }} />
-          <span className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-            {totalSessions}
-          </span>
-          <span className="text-xs text-center leading-tight" style={{ color: 'var(--color-text-tertiary)' }}>
-            {t('workout.sessions')}
-          </span>
-        </Card>
+        <KPICard
+          label={t('members.days_remaining')}
+          value={dates?.daysLeft ?? 0}
+          icon={Calendar}
+          color="var(--color-secondary)"
+        />
+        <KPICard
+          label={t('workout.streak')}
+          value={streak}
+          icon={Flame}
+          color="var(--color-warning)"
+        />
+        <KPICard
+          label={t('workout.sessions')}
+          value={totalSessions}
+          icon={Activity}
+          color="var(--color-success)"
+        />
       </div>
 
       {/* Membership details */}

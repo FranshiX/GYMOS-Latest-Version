@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus } from 'lucide-react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { ProgressChart } from '@/components/shared/ProgressChart'
 import { useMeasurementStore } from '@/store/useMeasurementStore'
 import { useMemberStore } from '@/store/useMemberStore'
 import { pageVariants, pageTransition } from '@/utils/variants'
@@ -13,15 +13,10 @@ import type { BodyMeasurement } from '@/domain/measurement/types'
 
 interface FormState {
   weight: string
-  bodyFat: string
-  chest: string
-  waist: string
-  hips: string
-  notes: string
 }
 
 const EMPTY_FORM: FormState = {
-  weight: '', bodyFat: '', chest: '', waist: '', hips: '', notes: '',
+  weight: '',
 }
 
 export function MeasurementsScreen() {
@@ -53,24 +48,12 @@ export function MeasurementsScreen() {
     addMeasurement({
       memberId,
       date: today,
-      ...(form.weight   ? { weight: Number(form.weight) } : {}),
-      measurements: {
-        ...(form.chest ? { chest: Number(form.chest) } : {}),
-        ...(form.waist ? { waist: Number(form.waist) } : {}),
-        ...(form.hips  ? { hips:  Number(form.hips)  } : {}),
-      },
+      ...(form.weight ? { weight: Number(form.weight) } : {}),
     })
     setForm(EMPTY_FORM)
     setShowForm(false)
   }, [memberId, form, addMeasurement])
 
-  const fields: { key: keyof FormState; label: string }[] = [
-    { key: 'weight',  label: t('measurements.weight') },
-    { key: 'bodyFat', label: t('measurements.body_fat') },
-    { key: 'chest',   label: t('workout.chest') },
-    { key: 'waist',   label: t('workout.waist') },
-    { key: 'hips',    label: t('workout.hips') },
-  ]
 
   return (
     <motion.div
@@ -112,30 +95,15 @@ export function MeasurementsScreen() {
             className="mx-4 mb-4 rounded-2xl p-4 flex flex-col gap-3"
             style={{ background: 'var(--color-bg-elevated)', border: '1px solid var(--border-default)' }}
           >
-            <div className="grid grid-cols-2 gap-3">
-              {fields.map(({ key, label }) => (
-                <div key={key} className="flex flex-col gap-1">
-                  <label className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>{label}</label>
-                  <input
-                    type="number"
-                    value={form[key]}
-                    onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                    className="px-3 py-2 rounded-xl text-sm outline-none"
-                    style={{ background: 'var(--color-bg-card)', color: 'var(--color-text-primary)', border: '1px solid var(--border-default)' }}
-                  />
-                </div>
-              ))}
-              <div className="col-span-2 flex flex-col gap-1">
-                <label className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
-                  {t('measurements.notes')}
-                </label>
-                <input
-                  value={form.notes}
-                  onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
-                  className="px-3 py-2 rounded-xl text-sm outline-none"
-                  style={{ background: 'var(--color-bg-card)', color: 'var(--color-text-primary)', border: '1px solid var(--border-default)' }}
-                />
-              </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>{t('measurements.weight')}</label>
+              <input
+                type="number"
+                value={form.weight}
+                onChange={e => setForm(f => ({ ...f, weight: e.target.value }))}
+                className="px-3 py-2 rounded-xl text-sm outline-none"
+                style={{ background: 'var(--color-bg-card)', color: 'var(--color-text-primary)', border: '1px solid var(--border-default)' }}
+              />
             </div>
             <div className="flex gap-2">
               <Button variant="primary" fullWidth onClick={handleSubmit}>
@@ -152,22 +120,11 @@ export function MeasurementsScreen() {
       <div className="flex flex-col gap-4 px-4 pb-8">
         {/* Weight chart */}
         {weightChartData.length > 0 && (
-          <Card variant="elevated" padding="md">
-            <p className="text-xs font-semibold uppercase tracking-wider mb-3"
-              style={{ color: 'var(--color-text-tertiary)' }}>
-              {t('measurements.weight')}
-            </p>
-            <div className="h-40">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={weightChartData}>
-                  <XAxis dataKey="date" tick={{ fontSize: 10, fill: 'var(--color-text-tertiary)' }} />
-                  <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-tertiary)' }} width={30} />
-                  <Tooltip contentStyle={{ background: 'var(--color-bg-card)', border: '1px solid var(--border-default)', borderRadius: 10, fontSize: 12 }} />
-                  <Line dataKey="value" stroke="var(--color-primary)" strokeWidth={2} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </Card>
+          <ProgressChart
+            data={weightChartData}
+            label={t('measurements.weight')}
+            height={160}
+          />
         )}
 
         {/* History */}
@@ -189,10 +146,7 @@ export function MeasurementsScreen() {
 
 function MeasurementCard({ m, t }: { m: BodyMeasurement; t: (k: string) => string }) {
   const items: { label: string; value: string }[] = []
-  if (m.weight)                items.push({ label: t('measurements.weight'),   value: `${m.weight} kg` })
-  if (m.measurements?.chest)   items.push({ label: t('workout.chest'),          value: `${m.measurements.chest} cm` })
-  if (m.measurements?.waist)   items.push({ label: t('workout.waist'),          value: `${m.measurements.waist} cm` })
-  if (m.measurements?.hips)    items.push({ label: t('workout.hips'),           value: `${m.measurements.hips} cm` })
+  if (m.weight) items.push({ label: t('measurements.weight'), value: `${m.weight} kg` })
 
   return (
     <Card variant="default" padding="sm">

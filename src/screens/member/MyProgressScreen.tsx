@@ -2,10 +2,11 @@ import { useState, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { ChevronRight } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { MonthlyReportCard } from '@/components/shared/MonthlyReportCard'
+import { ProgressChart } from '@/components/shared/ProgressChart'
 import { useMeasurementStore } from '@/store/useMeasurementStore'
 import { useWorkoutLogStore } from '@/store/useWorkoutLogStore'
 import { useExerciseStore } from '@/store/useExerciseStore'
@@ -13,14 +14,6 @@ import { useMemberStore } from '@/store/useMemberStore'
 import { pageVariants, pageTransition } from '@/utils/variants'
 
 type Tab = 'overview' | 'exercises' | 'body'
-
-const MonthlyReportCard: React.FC<{ memberId: string }> = ({ memberId }) => (
-  <Card variant="default" padding="md">
-    <p className="text-sm" style={{ color: 'var(--color-text-tertiary)' }}>
-      Monthly summary — {memberId}
-    </p>
-  </Card>
-)
 
 export function MyProgressScreen() {
   const { phone } = useParams<{ phone: string }>()
@@ -130,22 +123,19 @@ export function MyProgressScreen() {
                 const chartData = data.map((d: any) => ({ date: d.date.slice(5), value: d.maxWeight }))
                 return (
                   <Card key={exId} variant="elevated" padding="md">
-                    <p className="text-sm font-semibold mb-3" style={{ color: 'var(--color-text-primary)' }}>
-                      {ex ? (isAr ? ex.name_ar : ex.name_en) : exId}
-                    </p>
                     {chartData.length < 2 ? (
-                      <p className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>—</p>
+                      <p className="text-sm font-semibold mb-3" style={{ color: 'var(--color-text-primary)' }}>
+                        {ex ? (isAr ? ex.name_ar : ex.name_en) : exId}
+                      </p>
                     ) : (
-                      <div className="h-32">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart data={chartData}>
-                            <XAxis dataKey="date" tick={{ fontSize: 10, fill: 'var(--color-text-tertiary)' }} />
-                            <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-tertiary)' }} width={28} />
-                            <Tooltip contentStyle={{ background: 'var(--color-bg-card)', border: '1px solid var(--border-default)', borderRadius: 8, fontSize: 11 }} />
-                            <Line dataKey="value" stroke="var(--color-primary)" strokeWidth={2} dot={false} />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
+                      <ProgressChart
+                        data={chartData}
+                        label={ex ? (isAr ? ex.name_ar : ex.name_en) : exId}
+                        height={128}
+                      />
+                    )}
+                    {chartData.length < 2 && (
+                      <p className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>—</p>
                     )}
                   </Card>
                 )
@@ -158,25 +148,22 @@ export function MyProgressScreen() {
         {activeTab === 'body' && (
           <>
             <Card variant="elevated" padding="md">
-              <p className="text-xs font-semibold uppercase tracking-wider mb-3"
-                style={{ color: 'var(--color-text-tertiary)' }}>
-                {t('workout.bodyWeight')}
-              </p>
               {weightData.length === 0 ? (
-                <p className="text-sm text-center py-4" style={{ color: 'var(--color-text-tertiary)' }}>
-                  {t('measurements.no_data')}
-                </p>
+                <>
+                  <p className="text-xs font-semibold uppercase tracking-wider mb-3"
+                    style={{ color: 'var(--color-text-tertiary)' }}>
+                    {t('workout.bodyWeight')}
+                  </p>
+                  <p className="text-sm text-center py-4" style={{ color: 'var(--color-text-tertiary)' }}>
+                    {t('measurements.no_data')}
+                  </p>
+                </>
               ) : (
-                <div className="h-40">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={weightData}>
-                      <XAxis dataKey="date" tick={{ fontSize: 10, fill: 'var(--color-text-tertiary)' }} />
-                      <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-tertiary)' }} width={30} />
-                      <Tooltip contentStyle={{ background: 'var(--color-bg-card)', border: '1px solid var(--border-default)', borderRadius: 10, fontSize: 12 }} />
-                      <Line dataKey="value" stroke="var(--color-primary)" strokeWidth={2} dot={false} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+                <ProgressChart
+                  data={weightData}
+                  label={t('workout.bodyWeight')}
+                  height={160}
+                />
               )}
             </Card>
             <Button

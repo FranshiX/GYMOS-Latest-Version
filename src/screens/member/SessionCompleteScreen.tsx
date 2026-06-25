@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { TrendingUp, Clock, Dumbbell, CheckCircle, ChevronLeft } from 'lucide-react';
 import { useWorkoutPlanStore } from '../../store/useWorkoutPlanStore';
 import { useWorkoutLogStore } from '../../store/useWorkoutLogStore';
+import { useMemberStore } from '../../store/useMemberStore';
 import { pageVariants, pageTransition, celebrationVariants } from '@/utils/variants';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -19,8 +20,14 @@ const SessionCompleteScreen = () => {
 
   const { plans } = useWorkoutPlanStore();
   const { getLogsForMember } = useWorkoutLogStore();
+  const { members } = useMemberStore();
   const [perceivedExertion, setPerceivedExertion] = useState<'easy' | 'moderate' | 'hard' | 'very_hard' | null>(null);
   const [notes, setNotes] = useState('');
+
+  const member = useMemo(
+    () => members.find((m: any) => m.phone === phone),
+    [members, phone]
+  );
 
   const day = useMemo(() => {
     for (const plan of plans) {
@@ -31,10 +38,10 @@ const SessionCompleteScreen = () => {
   }, [plans, dayId]);
 
   const todayLogs = useMemo(() => {
-    if (!phone) return [];
+    if (!member) return [];
     const today = new Date().toISOString().slice(0, 10);
-    return getLogsForMember(phone).filter((log: any) => log.date.slice(0, 10) === today);
-  }, [phone, getLogsForMember]);
+    return getLogsForMember(member.id).filter((log: any) => log.date.slice(0, 10) === today);
+  }, [member, getLogsForMember]);
 
   const sessionStats = useMemo(() => {
     if (!todayLogs.length || !day) return null;

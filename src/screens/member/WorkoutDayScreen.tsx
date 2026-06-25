@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, Clock, CheckCircle } from 'lucide-react';
 import { useWorkoutPlanStore } from '../../store/useWorkoutPlanStore';
 import { useWorkoutLogStore } from '../../store/useWorkoutLogStore';
 import { useExerciseStore } from '../../store/useExerciseStore';
+import { useMemberStore } from '../../store/useMemberStore';
 import { useDirection } from '@/hooks/useDirection';
 import { pageVariants, pageTransition, collapseVariants, checkVariants } from '@/utils/variants';
 import { Button } from '@/components/ui/Button';
@@ -22,6 +23,7 @@ const WorkoutDayScreen = () => {
   const { plans } = useWorkoutPlanStore();
   const { getLogsForMember, startLog, finishLog } = useWorkoutLogStore();
   const { exercises } = useExerciseStore();
+  const { members } = useMemberStore();
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [completedExercises, setCompletedExercises] = useState<Set<string>>(new Set());
@@ -29,6 +31,11 @@ const WorkoutDayScreen = () => {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const sessionStartedRef = useRef(false);
+
+  const member = useMemo(
+    () => members.find((m: any) => m.phone === phone),
+    [members, phone]
+  );
 
   const day = useMemo(() => {
     for (const plan of plans) {
@@ -40,13 +47,13 @@ const WorkoutDayScreen = () => {
 
   // Start workout session on mount
   useEffect(() => {
-    if (!phone || !day || sessionStartedRef.current) return;
+    if (!phone || !day || sessionStartedRef.current || !member) return;
     sessionStartedRef.current = true;
     const planId = (day as { planId: string }).planId;
     // @ts-ignore - planId is guaranteed to be string by the type assertion above
-    const session = startLog(phone, planId, dayId);
+    const session = startLog(member.id, planId, dayId);
     setSessionId(session.id);
-  }, [phone, day, dayId, startLog]);
+  }, [phone, day, dayId, startLog, member]);
 
   // Session timer - starts when sessionId is set
   useEffect(() => {
@@ -70,8 +77,9 @@ const WorkoutDayScreen = () => {
   }, [exercises, isAr]);
 
   const getLastSessionData = useCallback((exerciseId: string) => {
+    if (!member) return null;
     const today = new Date().toISOString().split('T')[0];
-    const allLogs = getLogsForMember(phone || '');
+    const allLogs = getLogsForMember(member.id);
 
     // Filter to logs from previous days that are completed
     const previousLogs = allLogs.filter((log: any) =>
@@ -90,7 +98,7 @@ const WorkoutDayScreen = () => {
     if (!exerciseData) return null;
 
     return exerciseData.sets;
-  }, [phone, getLogsForMember]);
+  }, [member, getLogsForMember]);
 
   const handleExerciseComplete = useCallback((exerciseId: string) => {
     setCompletedExercises(prev => new Set(prev).add(exerciseId));
