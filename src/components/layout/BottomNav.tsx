@@ -51,12 +51,13 @@ export function BottomNav({ role }: { role: 'admin' | 'member' }) {
 
   return (
     <nav
-      className="fixed bottom-0 start-0 end-0 z-30 pb-safe"
+      className="fixed bottom-0 start-0 end-0 z-30"
       style={{
         background:   'rgba(8,8,8,0.92)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         borderTop:    '1px solid var(--border-default)',
+        paddingBottom: 'max(6px, var(--safe-area-inset-bottom))',
       }}
     >
       <div className="flex items-center justify-around px-1 py-1.5">

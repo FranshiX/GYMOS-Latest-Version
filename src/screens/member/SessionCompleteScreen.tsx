@@ -113,6 +113,7 @@ const SessionCompleteScreen = () => {
       variants={pageVariants}
       transition={pageTransition}
       className="min-h-screen flex flex-col"
+      data-screen="session-complete"
       style={{ background: 'var(--color-bg-base)', color: 'var(--color-text-primary)' }}
     >
       {/* Celebration Header */}

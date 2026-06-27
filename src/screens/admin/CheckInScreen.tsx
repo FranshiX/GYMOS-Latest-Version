@@ -224,6 +224,7 @@ export function CheckInScreen() {
       transition={pageTransition}
       className="flex flex-col gap-4"
       dir={dir}
+      data-screen="check-in"
       style={{ background: 'var(--color-bg-base)' }}
     >
 

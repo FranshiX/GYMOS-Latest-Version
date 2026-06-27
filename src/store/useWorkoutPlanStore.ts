@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { WorkoutPlan, WorkoutDay, WorkoutExercise } from '../domain/workout/types'
 import plansData from '../data/workoutPlans.json'
 
-interface WorkoutPlanStore {
+export interface WorkoutPlanStore {
   plans: WorkoutPlan[]
 
   // Plans

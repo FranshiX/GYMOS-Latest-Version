@@ -66,7 +66,7 @@ export function ExerciseLibraryScreen() {
   };
 
   return (
-    <div dir={dir} className="flex flex-col gap-4 pb-4">
+    <div dir={dir} className="flex flex-col gap-4 pb-4" data-screen="exercise-library">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

@@ -63,3 +63,5 @@ export function Drawer({ open, onClose, title, children }: DrawerProps) {
     </>
   )
 }
+
+export default Drawer

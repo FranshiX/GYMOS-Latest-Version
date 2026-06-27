@@ -14,6 +14,7 @@ declare module 'lucide-react' {
   export const TrendingUp: LucideIcon
   export const Calendar: LucideIcon
   export const Activity: LucideIcon
+  export const Flame: LucideIcon
   export const CheckCircle: LucideIcon
   export const X: LucideIcon
   export const Save: LucideIcon

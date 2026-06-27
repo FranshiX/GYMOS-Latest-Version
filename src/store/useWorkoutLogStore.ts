@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { WorkoutLog, ExerciseLog, SetLog } from '../domain/workoutLog/types'
 import logsData from '../data/workoutLogs.json'
 
-interface WorkoutLogStore {
+export interface WorkoutLogStore {
   logs: WorkoutLog[]
 
   // Getters

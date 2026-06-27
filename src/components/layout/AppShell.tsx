@@ -22,12 +22,13 @@ export function AppShell() {
       <div className="flex flex-col flex-1 md:ms-0 min-w-0">
         <TopBar />
         <main
-          className="flex-1 overflow-y-auto p-4 pb-28 md:pb-8"
-          style={{ maxWidth: '100%' }}
+          className="flex-1 overflow-y-auto p-4"
+          style={{
+            maxWidth: '100%',
+            paddingBottom: 'calc(7rem + var(--safe-area-inset-bottom))',
+          }}
         >
-          <div className="max-w-2xl mx-auto w-full">
-            <Outlet />
-          </div>
+          <Outlet />
         </main>
       </div>
 

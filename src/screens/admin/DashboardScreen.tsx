@@ -17,15 +17,16 @@ import {
   Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell,
 } from 'recharts'
-import paymentsData from '@/data/payments.json'
+import { paymentService } from '@/services/paymentService'
 import { format, subDays } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 
 function buildRevenueChart() {
+  const payments = paymentService.getAll()
   return Array.from({ length: 7 }, (_, i) => {
     const date  = subDays(new Date(), 6 - i)
     const key   = format(date, 'yyyy-MM-dd')
-    const total = paymentsData
+    const total = payments
       .filter(p => p.date === key)
       .reduce((s, p) => s + p.amount, 0)
     return { day: format(date, 'EEE'), revenue: total }
@@ -60,7 +61,8 @@ export function DashboardScreen() {
   const memberships   = useMembershipStore((s: any) => s.memberships)
   const members       = useMemberStore((s: any) => s.members)
   const revenueData   = buildRevenueChart()
-  const totalRevenue  = paymentsData.reduce((s, p) => s + p.amount, 0)
+  const payments      = paymentService.getAll()
+  const totalRevenue  = payments.reduce((s, p) => s + p.amount, 0)
 
   const pieData = [
     { name: t('status.active'),        value: stats.activeMembers,   color: 'var(--color-success)' },
@@ -82,6 +84,7 @@ export function DashboardScreen() {
       transition={pageTransition}
       className="flex flex-col gap-4 pb-4"
       dir={dir}
+      data-screen="dashboard"
       style={{ background: 'var(--color-bg-base)' }}
     >
 

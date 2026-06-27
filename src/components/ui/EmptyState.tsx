@@ -41,3 +41,5 @@ export function EmptyState({ icon: Icon, title, subtitle, cta }: EmptyStateProps
     </div>
   )
 }
+
+export default EmptyState

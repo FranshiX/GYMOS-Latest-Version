@@ -3,20 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useExerciseStore } from '../../store/useExerciseStore';
 import { useWorkoutLogStore } from '../../store/useWorkoutLogStore';
-
-// Temporary stub — will be replaced by M14
-const SetLogger: React.FC<{ exerciseId: string; memberId: string }> = ({ exerciseId, memberId }) => (
-  <div
-    className="rounded-2xl p-4 border text-xs"
-    style={{
-      background: 'var(--color-bg-elevated)',
-      borderColor: 'var(--color-bg-border)',
-      color: 'var(--color-text-muted)',
-    }}
-  >
-    SetLogger [{exerciseId} / {memberId}]
-  </div>
-);
+import { useMemberStore } from '../../store/useMemberStore';
+import { SetLogger } from '@/components/shared/SetLogger';
 
 const ExerciseDetailScreen: React.FC = () => {
   const { phone, id } = useParams<{ phone: string; id: string }>();
@@ -24,6 +12,8 @@ const ExerciseDetailScreen: React.FC = () => {
   const { t, i18n } = useTranslation();
   const dir = i18n.dir();
   const isAr = i18n.language === 'ar';
+
+  const member = useMemberStore(s => s.members.find(m => m.phone === phone));
 
   const { exercises } = useExerciseStore();
   const exercise = useMemo(
@@ -33,8 +23,8 @@ const ExerciseDetailScreen: React.FC = () => {
 
   const { getLogsForMember } = useWorkoutLogStore();
   const prevSessions = useMemo(() => {
-    if (!phone || !id) return [];
-    const logs = getLogsForMember(phone);
+    if (!member || !id) return [];
+    const logs = getLogsForMember(member.id);
     return logs
       .filter((log: any) => log.exercises.some((ex: any) => ex.exerciseId === id))
       .slice(-3)
@@ -47,7 +37,7 @@ const ExerciseDetailScreen: React.FC = () => {
           sets: exerciseLog?.sets ?? [],
         };
       });
-  }, [phone, id, getLogsForMember]);
+  }, [member, id, getLogsForMember]);
 
   const handleBack = useCallback(() => navigate(-1), [navigate]);
 
@@ -148,7 +138,7 @@ const ExerciseDetailScreen: React.FC = () => {
         )}
 
         {/* Set logger */}
-        {phone && id && <SetLogger exerciseId={id} memberId={phone} />}
+        {member && id && <SetLogger exerciseId={id} />}
 
         {/* Previous sessions */}
         {prevSessions.length > 0 && (

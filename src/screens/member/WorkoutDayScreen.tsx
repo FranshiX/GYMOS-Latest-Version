@@ -162,6 +162,7 @@ const WorkoutDayScreen = () => {
       variants={pageVariants}
       transition={pageTransition}
       className="min-h-screen flex flex-col"
+      data-screen="workout-day"
       style={{ background: 'var(--color-bg-base)', color: 'var(--color-text-primary)' }}
     >
       {/* Session Header */}

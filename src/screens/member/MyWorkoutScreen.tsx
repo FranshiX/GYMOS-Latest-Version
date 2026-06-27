@@ -107,9 +107,8 @@ export function MyWorkoutScreen() {
   const planName = isAr ? activePlan.name_ar : activePlan.name_en;
   const totalSessions = activePlan.days.length;
   const completedSessions = logs.filter((log: any) => log.workoutPlanId === activePlan.id && log.completedAt).length;
-  const totalExercisesCompleted = logs.reduce((acc: number, log: any) => 
-    acc + log.exercises.length, 0
-  );
+  const totalExercisesCompleted = logs.reduce((acc: number, log: any) => acc + (log.exercises?.length ?? 0), 0);
+
   const progress = totalSessions > 0 ? (completedSessions / totalSessions) * 100 : 0;
 
   // Determine current day (first uncompleted day, or cycle to day 1 if all completed)
@@ -128,6 +127,7 @@ export function MyWorkoutScreen() {
       transition={pageTransition}
       className="flex flex-col h-full"
       dir={dir}
+      data-screen="my-workout"
       style={{ background: 'var(--color-bg-base)' }}
     >
       {/* Header */}
@@ -218,7 +218,7 @@ export function MyWorkoutScreen() {
           </p>
           <div className="flex flex-col gap-2">
             {activePlan.days.map((day: any, index: number) => {
-              const isCompleted = logs.some((log: any) => log.workoutDayId === day.id);
+              const isCompleted = logs.some((log: any) => log.workoutDayId === day.id && !!log.completedAt);
               const isCurrent = index === currentDayIndexFinal;
               const isUpcoming = index > currentDayIndexFinal;
               const dayName = isAr ? day.name_ar : day.name_en;

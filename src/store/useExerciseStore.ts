@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { Exercise, MuscleGroup } from '../domain/exercise/types'
 import exercisesData from '../data/exercises.json'
 
-interface ExerciseStore {
+export interface ExerciseStore {
   exercises: Exercise[]
   addExercise: (exercise: Omit<Exercise, 'id'>) => void
   updateExercise: (id: string, updates: Partial<Exercise>) => void

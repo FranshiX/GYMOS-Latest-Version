@@ -11,7 +11,7 @@ import { useMembershipStore } from '@/store/useMembershipStore'
 import { useCheckinStore } from '@/store/useCheckinStore'
 import { computeStatus, getDateRange, getStampsBalance } from '@/domain/membership/membershipLogic'
 import type { Plan } from '@/domain/plan/types'
-import plansData from '@/data/plans.json'
+import { planService } from '@/services/planService'
 import { format, parseISO, addDays } from 'date-fns'
 import { CheckCircle, Clock, XCircle, Dumbbell } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -39,7 +39,8 @@ export function MemberDrawer({ member, onClose }: MemberDrawerProps) {
   const status = ms ? computeStatus(ms)    : 'EXPIRED' as const
   const stamps = ms ? getStampsBalance(ms) : null
   const dates  = ms ? getDateRange(ms)     : null
-  const plan   = ms ? plansData.find(p => p.id === ms.planId) : null
+  const plans  = planService.getAll()
+  const plan   = ms ? plans.find(p => p.id === ms.planId) : null
 
   const recentCheckins = checkins
     .filter((c: any) => c.memberId === member.id)
@@ -71,7 +72,7 @@ export function MemberDrawer({ member, onClose }: MemberDrawerProps) {
 
   return (
     <>
-      <Drawer open={!!member} onClose={onClose} title={member.fullName}>
+      <Drawer open={!!member} onClose={onClose} title={member.fullName} data-screen="member-drawer">
         <div className="flex flex-col gap-5">
 
           {/* Status + phone */}
@@ -255,7 +256,7 @@ export function MemberDrawer({ member, onClose }: MemberDrawerProps) {
             <p className="text-xs mb-1" style={{ color: 'var(--color-text-muted)' }}>
               {t('registration.step2')}
             </p>
-            {plansData.map(p => (
+            {plans.map(p => (
               <button
                 key={p.id}
                 onClick={() => setSelectedPlan(p as Plan)}

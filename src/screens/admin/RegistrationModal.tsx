@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { useMemberStore } from '@/store/useMemberStore'
 import { useMembershipStore } from '@/store/useMembershipStore'
-import plansData from '@/data/plans.json'
+import { planService } from '@/services/planService'
 import { addDays, format } from 'date-fns'
 import type { Plan } from '@/domain/plan/types'
 import { CheckCircle } from 'lucide-react'
@@ -74,8 +74,10 @@ export function RegistrationModal({ open, onClose }: Props) {
     setDone(true)
   }
 
+  const plans = planService.getAll()
+
   return (
-    <Modal open={open} onClose={handleClose} title={t('registration.title')} size="md">
+    <Modal open={open} onClose={handleClose} title={t('registration.title')} size="md" data-screen="registration-modal">
 
       {/* Progress bar */}
       {!done && (
@@ -150,7 +152,7 @@ export function RegistrationModal({ open, onClose }: Props) {
           {/* Step 2 — Choose plan */}
           {step === 2 && (
             <div className="flex flex-col gap-3">
-              {plansData.map(p => (
+              {plans.map(p => (
                 <button
                   key={p.id}
                   onClick={() => setPlan(p as Plan)}

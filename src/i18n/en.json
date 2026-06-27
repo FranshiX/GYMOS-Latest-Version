@@ -158,7 +158,10 @@
     "cancel": "Cancel",
     "close": "Close",
     "confirm": "Confirm",
-    "currency": "$"
+    "currency": "$",
+    "delete": "Delete",
+    "dismiss": "Dismiss",
+    "min": "min"
   },
   "workout": {
     "library": "Exercise Library",
@@ -226,7 +229,8 @@
     "how_did_it_feel": "How did it feel?",
     "notes_optional": "Notes (optional)",
     "back_to_home": "Back to Home",
-    "workout_days": "Workout Days"
+    "workout_days": "Workout Days",
+    "complete_previous_first": "Complete previous workout first"
   },
   "exercise": {
     "coach_notes": "Coach Notes",

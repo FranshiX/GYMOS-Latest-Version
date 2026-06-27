@@ -157,7 +157,10 @@
     "cancel": "إلغاء",
     "close": "إغلاق",
     "confirm": "تأكيد",
-    "currency": "د.أ"
+    "currency": "د.أ",
+    "delete": "حذف",
+    "dismiss": "إغلاق",
+    "min": "دقيقة"
   },
   "pwa": {
     "install_title": "تثبيت التطبيق",
@@ -230,7 +233,8 @@
     "how_did_it_feel": "كيف شعرت؟",
     "notes_optional": "ملاحظات (اختياري)",
     "back_to_home": "العودة للرئيسية",
-    "workout_days": "أيام التدريب"
+    "workout_days": "أيام التدريب",
+    "complete_previous_first": "أكمل التمرين السابق أولاً"
   },
   "exercise": {
     "coach_notes": "ملاحظات المدرب",

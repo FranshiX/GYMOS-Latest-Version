@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { BodyMeasurement } from '../domain/measurement/types'
 import measurementsData from '../data/measurements.json'
 
-interface MeasurementStore {
+export interface MeasurementStore {
   measurements: BodyMeasurement[]
 
   // Getters

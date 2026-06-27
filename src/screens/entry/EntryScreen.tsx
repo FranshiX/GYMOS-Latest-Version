@@ -51,11 +51,14 @@ function Keypad({ onPress, onDelete }: { onPress: (v: string) => void; onDelete:
           <button
             key={i}
             onClick={() => onPress(key)}
-            className="h-16 rounded-2xl flex items-center justify-center text-xl font-medium transition-all active:scale-95 active:bg-white/10"
+            className="h-16 rounded-2xl flex items-center justify-center text-xl font-medium transition-all active:scale-95"
             style={{
               background: 'rgba(255,255,255,0.06)',
               color: 'var(--color-text-primary)',
             }}
+            onMouseDown={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+            onMouseUp={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
           >
             {key}
           </button>
@@ -163,6 +166,7 @@ export function EntryScreen() {
   return (
     <div
       className="min-h-dvh flex flex-col items-center justify-between p-6 pb-10"
+      data-screen="entry"
       style={{ background: 'var(--color-bg-primary)' }}
     >
       {/* Top bar */}
@@ -170,8 +174,12 @@ export function EntryScreen() {
         {mode !== 'select' ? (
           <button
             onClick={goBack}
-            className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors hover:bg-white/5"
-            style={{ color: 'var(--color-text-secondary)' }}
+            className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors"
+            style={{
+              color: 'var(--color-text-secondary)',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
           >
             <ChevronLeft size={20} />
           </button>
@@ -180,11 +188,13 @@ export function EntryScreen() {
         )}
         <button
           onClick={toggleLanguage}
-          className="text-xs px-3 py-1.5 rounded-xl border transition-colors hover:bg-white/5 font-medium"
+          className="text-xs px-3 py-1.5 rounded-xl border transition-colors font-medium"
           style={{
             color: 'var(--color-text-secondary)',
             borderColor: 'var(--color-bg-border)',
           }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
         >
           {language === 'ar' ? 'EN' : 'ع'}
         </button>
@@ -238,11 +248,13 @@ export function EntryScreen() {
           <div className="w-full flex flex-col gap-3">
             <button
               onClick={() => { setMode('staff'); setError('') }}
-              className="w-full flex items-center gap-4 p-5 rounded-2xl transition-all active:scale-98 hover:border-indigo-500/40"
+              className="w-full flex items-center gap-4 p-5 rounded-2xl transition-all active:scale-98"
               style={{
-                background: 'rgba(99,102,241,0.08)',
-                border: '1.5px solid rgba(99,102,241,0.2)',
+                background: 'var(--color-brand-muted)',
+                border: '1.5px solid var(--color-brand)',
               }}
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(99,102,241,0.4)'}
+              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--color-brand)'}
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"

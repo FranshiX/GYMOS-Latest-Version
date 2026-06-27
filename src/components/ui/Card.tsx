@@ -73,3 +73,5 @@ export function Card({
     </MotionComponent>
   )
 }
+
+export default Card

@@ -6,7 +6,7 @@ import { processCheckIn } from '@/domain/checkin/checkinLogic'
 import { useMemberStore } from './useMemberStore'
 import { useMembershipStore } from './useMembershipStore'
 
-interface CheckinStore {
+export interface CheckinStore {
   checkins: CheckIn[]
   lastResult: CheckInResult | null
   lastCheckin: CheckIn | null

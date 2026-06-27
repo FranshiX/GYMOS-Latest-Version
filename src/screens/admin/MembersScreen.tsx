@@ -12,7 +12,7 @@ import { pageVariants, pageTransition, listItemVariants } from '@/utils/variants
 import { computeStatus, getDateRange, getStampsBalance } from '@/domain/membership/membershipLogic'
 import type { MemberStatus } from '@/domain/membership/types'
 import type { Member } from '@/domain/member/types'
-import plansData from '@/data/plans.json'
+import { planService } from '@/services/planService'
 import { MemberDrawer } from './MemberDrawer'
 import { RegistrationModal } from './RegistrationModal'
 
@@ -46,7 +46,8 @@ export function MembersScreen() {
     const status = ms ? computeStatus(ms) : 'EXPIRED' as MemberStatus
     const stamps = ms ? getStampsBalance(ms) : null
     const dates  = ms ? getDateRange(ms)     : null
-    const plan   = ms ? plansData.find(p => p.id === ms.planId) : null
+    const plans  = planService.getAll()
+    const plan   = ms ? plans.find(p => p.id === ms.planId) : null
     return { member: m, ms, status, stamps, dates, plan }
   })
 
@@ -75,6 +76,7 @@ export function MembersScreen() {
       transition={pageTransition}
       className="flex flex-col gap-4 pb-4"
       dir={dir}
+      data-screen="members"
       style={{ background: 'var(--color-bg-base)' }}
     >
 

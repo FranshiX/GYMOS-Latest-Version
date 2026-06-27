@@ -13,7 +13,7 @@ import { useCheckinStore } from '@/store/useCheckinStore'
 import { useWorkoutLogStore } from '@/store/useWorkoutLogStore'
 import { pageVariants, pageTransition } from '@/utils/variants'
 import { computeStatus, getDateRange, getStampsBalance } from '@/domain/membership/membershipLogic'
-import plansData from '@/data/plans.json'
+import { planService } from '@/services/planService'
 import { format, parseISO } from 'date-fns'
 
 // ── Circular progress arc ────────────────────────────────────────────────────
@@ -113,11 +113,12 @@ export function MemberProfileScreen() {
   const status  = ms ? computeStatus(ms)    : 'EXPIRED' as const
   const stamps  = ms ? getStampsBalance(ms) : null
   const dates   = ms ? getDateRange(ms)     : null
-  const plan    = ms ? plansData.find(p => p.id === ms.planId) : null
+  const plans   = planService.getAll()
+  const plan    = ms ? plans.find(p => p.id === ms.planId) : null
 
   const myCheckins = checkins
     .filter((c: any) => c.memberId === member.id && c.result === 'GRANTED')
-    .sort((a: any, b: any) => b.timestamp.localeCompare(a.timestamp))
+    .sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
     .slice(0, 6)
 
   const streak       = getStreakForMember(member.id)

@@ -12,8 +12,8 @@ import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
 } from 'recharts'
-import paymentsData from '@/data/payments.json'
-import plansData from '@/data/plans.json'
+import { paymentService } from '@/services/paymentService'
+import { planService } from '@/services/planService'
 import { format, subDays, subMonths } from 'date-fns'
 
 type Tab = 'revenue' | 'attendance' | 'membership' | 'expired'
@@ -31,10 +31,11 @@ const TOOLTIP_STYLE = {
 const PIE_COLORS = ['var(--color-success)', 'var(--color-warning)', 'var(--color-danger)']
 
 function buildMonthlyRevenue() {
+  const payments = paymentService.getAll()
   return Array.from({ length: 6 }, (_, i) => {
     const date = subMonths(new Date(), 5 - i)
     const monthStr = format(date, 'yyyy-MM')
-    const total = paymentsData
+    const total = payments
       .filter(p => p.date.startsWith(monthStr))
       .reduce((s, p) => s + p.amount, 0)
     return { month: format(date, 'MMM'), amount: total }
@@ -81,8 +82,9 @@ export function ReportsScreen() {
   const peakDays       = useMemo(() => buildPeakDays(checkins), [checkins])
 
   const currentMonthStr = format(new Date(), 'yyyy-MM')
+  const payments = paymentService.getAll()
   const currentMonthRevenue = useMemo(
-    () => paymentsData
+    () => payments
       .filter(p => p.date.startsWith(currentMonthStr))
       .reduce((s, p) => s + p.amount, 0),
     [currentMonthStr]
@@ -96,10 +98,13 @@ export function ReportsScreen() {
   }, [memberships])
 
   const planDist = useMemo(
-    () => plansData.map(plan => ({
-      name: plan.name,
-      count: memberships.filter((ms: any) => ms.planId === plan.id).length,
-    })),
+    () => {
+      const plans = planService.getAll()
+      return plans.map(plan => ({
+        name: plan.name,
+        count: memberships.filter((ms: any) => ms.planId === plan.id).length,
+      }))
+    },
     [memberships]
   )
 
@@ -168,7 +173,7 @@ export function ReportsScreen() {
                 {t('dashboard.revenue_month')}
               </p>
               <p className="text-2xl font-bold" style={{ color: 'var(--color-brand)' }}>
-                ${paymentsData.reduce((s, p) => s + p.amount, 0)}
+                ${payments.reduce((s, p) => s + p.amount, 0)}
               </p>
             </Card>
           </div>

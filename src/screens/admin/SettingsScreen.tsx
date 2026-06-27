@@ -1,13 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { useDirection } from '@/hooks/useDirection'
 import { Card } from '@/components/ui/Card'
-import plansData from '@/data/plans.json'
+import { planService } from '@/services/planService'
 
 const APP_VERSION = '2.0.0'
 
 export function SettingsScreen() {
   const { t, i18n } = useTranslation()
   const { isRTL, language } = useDirection()
+  const plans = planService.getAll()
 
   return (
     <div
@@ -71,7 +72,7 @@ export function SettingsScreen() {
           {t('settings.plans')}
         </p>
         <div className="flex flex-col gap-3">
-          {plansData.map((plan, i) => (
+          {plans.map((plan, i) => (
             <Card key={plan.id} padding="md">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">

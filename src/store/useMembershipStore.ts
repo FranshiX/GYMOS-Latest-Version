@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import type { Membership } from '@/domain/membership/types'
 import membershipsData from '@/data/memberships.json'
 
-interface MembershipStore {
+export interface MembershipStore {
   memberships: Membership[]
   loadMemberships: () => void
   getMembershipById: (id: string) => Membership | undefined

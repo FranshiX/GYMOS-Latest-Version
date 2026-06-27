@@ -128,6 +128,7 @@ export function WorkoutPlanBuilder() {
       transition={pageTransition}
       dir={isRTL ? 'rtl' : 'ltr'}
       className="flex flex-col h-full overflow-y-auto"
+      data-screen="workout-plan-builder"
       style={{ background: 'var(--color-bg-base)' }}
     >
       {/* Header */}
