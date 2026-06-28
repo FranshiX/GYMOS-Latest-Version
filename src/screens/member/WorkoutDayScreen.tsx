@@ -12,6 +12,10 @@ import { pageVariants, pageTransition, collapseVariants, checkVariants } from '@
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { SetLogger } from '@/components/shared/SetLogger';
+import type { Member } from '@/domain/member/types';
+import type { WorkoutLog, ExerciseLog, SetLog } from '../../domain/workoutLog/types';
+import type { Exercise } from '../../domain/exercise/types';
+import type { WorkoutDay, WorkoutExercise } from '@/domain/workout/types';
 
 const WorkoutDayScreen = () => {
   const { phone, dayId } = useParams<{ phone: string; dayId: string }>();
@@ -33,14 +37,14 @@ const WorkoutDayScreen = () => {
   const sessionStartedRef = useRef(false);
 
   const member = useMemo(
-    () => members.find((m: any) => m.phone === phone),
+    () => members.find((m: Member) => m.phone === phone),
     [members, phone]
   );
 
   const day = useMemo(() => {
     for (const plan of plans) {
-      const found = plan.days.find((d: any) => d.id === dayId);
-      if (found) return { ...found, planId: plan.id } as { planId: string; [key: string]: any };
+      const found = plan.days.find((d: WorkoutDay) => d.id === dayId);
+      if (found) return { ...found, planId: plan.id } as WorkoutDay & { planId: string };
     }
     return null;
   }, [plans, dayId]);
@@ -71,7 +75,7 @@ const WorkoutDayScreen = () => {
   };
 
   const getExerciseName = useCallback((exerciseId: string) => {
-    const ex = exercises.find((e: any) => e.id === exerciseId);
+    const ex = exercises.find((e: Exercise) => e.id === exerciseId);
     if (!ex) return exerciseId;
     return isAr ? ex.name_ar : ex.name_en;
   }, [exercises, isAr]);
@@ -82,19 +86,19 @@ const WorkoutDayScreen = () => {
     const allLogs = getLogsForMember(member.id);
 
     // Filter to logs from previous days that are completed
-    const previousLogs = allLogs.filter((log: any) =>
+    const previousLogs = allLogs.filter((log: WorkoutLog) =>
       log.date !== today &&
       log.completedAt &&
-      log.exercises.some((ex: any) => ex.exerciseId === exerciseId)
+      log.exercises.some((ex: ExerciseLog) => ex.exerciseId === exerciseId)
     );
 
     if (previousLogs.length === 0) return null;
 
     // Sort by date descending (most recent first)
-    previousLogs.sort((a: any, b: any) => b.date.localeCompare(a.date));
+    previousLogs.sort((a: WorkoutLog, b: WorkoutLog) => b.date.localeCompare(a.date));
 
     const lastLog = previousLogs[0];
-    const exerciseData = lastLog.exercises.find((ex: any) => ex.exerciseId === exerciseId);
+    const exerciseData = lastLog.exercises.find((ex: ExerciseLog) => ex.exerciseId === exerciseId);
     if (!exerciseData) return null;
 
     return exerciseData.sets;
@@ -141,7 +145,7 @@ const WorkoutDayScreen = () => {
 
   // Check if all exercises are completed
   const allExercisesComplete = day.exercises.length > 0 &&
-    day.exercises.every((we: any) => completedExercises.has(we.exerciseId));
+    day.exercises.every((we: WorkoutExercise) => completedExercises.has(we.exerciseId));
 
   // Auto-navigate to SessionCompleteScreen when all exercises are done
   useEffect(() => {
@@ -219,7 +223,7 @@ const WorkoutDayScreen = () => {
       {/* Exercise List */}
       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
         <AnimatePresence mode="popLayout">
-          {day.exercises.map((we: any, index: number) => {
+          {day.exercises.map((we: WorkoutExercise, index: number) => {
             const isCurrent = index === currentExerciseIndex;
             const isCompleted = completedExercises.has(we.exerciseId);
             const isCollapsed = collapsedExercises.has(we.exerciseId);
@@ -283,7 +287,7 @@ const WorkoutDayScreen = () => {
                         {t('workout.last_session')}
                       </p>
                       <div className="flex gap-2 flex-wrap">
-                        {lastSessionData.slice(0, 3).map((set: any, i: number) => (
+                        {lastSessionData.slice(0, 3).map((set: SetLog, i: number) => (
                           <span
                             key={i}
                             className="text-xs px-2 py-1 rounded"

@@ -10,6 +10,9 @@ import { pageVariants, pageTransition, celebrationVariants } from '@/utils/varia
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { ProgressRing } from '@/components/ui/ProgressRing';
+import type { Member } from '@/domain/member/types';
+import type { WorkoutLog, ExerciseLog, SetLog } from '../../domain/workoutLog/types';
+import type { WorkoutDay } from '@/domain/workout/types';
 
 const SessionCompleteScreen = () => {
   const { phone, dayId } = useParams<{ phone: string; dayId: string }>();
@@ -25,13 +28,13 @@ const SessionCompleteScreen = () => {
   const [notes, setNotes] = useState('');
 
   const member = useMemo(
-    () => members.find((m: any) => m.phone === phone),
+    () => members.find((m: Member) => m.phone === phone),
     [members, phone]
   );
 
   const day = useMemo(() => {
     for (const plan of plans) {
-      const found = plan.days.find((d: any) => d.id === dayId);
+      const found = plan.days.find((d: WorkoutDay) => d.id === dayId);
       if (found) return found;
     }
     return null;
@@ -40,19 +43,19 @@ const SessionCompleteScreen = () => {
   const todayLogs = useMemo(() => {
     if (!member) return [];
     const today = new Date().toISOString().slice(0, 10);
-    return getLogsForMember(member.id).filter((log: any) => log.date.slice(0, 10) === today);
+    return getLogsForMember(member.id).filter((log: WorkoutLog) => log.date.slice(0, 10) === today);
   }, [member, getLogsForMember]);
 
   const sessionStats = useMemo(() => {
     if (!todayLogs.length || !day) return null;
 
     const log = todayLogs[0];
-    const totalSets = log.exercises.reduce((acc: number, ex: any) => acc + ex.sets.length, 0);
-    const completedSets = log.exercises.reduce((acc: number, ex: any) =>
-      acc + ex.sets.filter((s: any) => s.completed).length, 0
+    const totalSets = log.exercises.reduce((acc: number, ex: ExerciseLog) => acc + ex.sets.length, 0);
+    const completedSets = log.exercises.reduce((acc: number, ex: ExerciseLog) =>
+      acc + ex.sets.filter((s: SetLog) => s.completed).length, 0
     );
-    const totalVolume = log.exercises.reduce((acc: number, ex: any) =>
-      acc + ex.sets.reduce((setAcc: number, s: any) => setAcc + (s.weight * s.reps), 0), 0
+    const totalVolume = log.exercises.reduce((acc: number, ex: ExerciseLog) =>
+      acc + ex.sets.reduce((setAcc: number, s: SetLog) => setAcc + (s.weight * s.reps), 0), 0
     );
 
     // Get real duration from route state (passed from WorkoutDayScreen)
@@ -74,11 +77,11 @@ const SessionCompleteScreen = () => {
     return isAr ? day.name_ar : day.name_en;
   }, [day, isAr]);
 
-  const exertionOptions = [
-    { value: 'easy', label: isAr ? 'سهل' : 'Easy', color: 'var(--color-success)' },
-    { value: 'moderate', label: isAr ? 'متوسط' : 'Moderate', color: 'var(--color-secondary)' },
-    { value: 'hard', label: isAr ? 'صعب' : 'Hard', color: 'var(--color-warning)' },
-    { value: 'very_hard', label: isAr ? 'صعب جداً' : 'Very Hard', color: 'var(--color-danger)' },
+  const exertionOptions: { value: 'easy' | 'moderate' | 'hard' | 'very_hard'; label: string; color: string }[] = [
+    { value: 'easy', label: t('workout.exertion_easy'), color: 'var(--color-success)' },
+    { value: 'moderate', label: t('workout.exertion_moderate'), color: 'var(--color-secondary)' },
+    { value: 'hard', label: t('workout.exertion_hard'), color: 'var(--color-warning)' },
+    { value: 'very_hard', label: t('workout.exertion_very_hard'), color: 'var(--color-danger)' },
   ];
 
   const handleBackToHome = () => {
@@ -241,7 +244,7 @@ const SessionCompleteScreen = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6 + index * 0.1, duration: 0.2 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setPerceivedExertion(option.value as any)}
+                onClick={() => setPerceivedExertion(option.value)}
                 className={`py-3 px-4 rounded-xl text-sm font-medium transition-all ${
                   perceivedExertion === option.value ? 'ring-2' : ''
                 }`}
@@ -276,7 +279,7 @@ const SessionCompleteScreen = () => {
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder={isAr ? 'أضف ملاحظاتك هنا...' : 'Add your notes here...'}
+            placeholder={t('workout.notes_placeholder')}
             className="w-full p-4 rounded-xl text-sm outline-none resize-none"
             style={{
               background: 'var(--color-bg-elevated)',
