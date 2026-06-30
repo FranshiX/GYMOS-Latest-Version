@@ -59,7 +59,7 @@ export function Button({
       disabled={isDisabled}
       className={clsx(
         'inline-flex items-center justify-center font-medium rounded-xl',
-        'transition-all duration-200',
+        'transition-colors transition-opacity duration-200',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         VARIANT_CLASSES[variant],

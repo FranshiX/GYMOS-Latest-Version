@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { clsx } from 'clsx'
 
@@ -17,11 +18,22 @@ const SIZES = {
 }
 
 export function Modal({ open, onClose, title, children, size = 'md' }: ModalProps) {
+  const { t } = useTranslation()
+
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden'
     else      document.body.style.overflow = ''
     return () => { document.body.style.overflow = '' }
   }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [open, onClose])
 
   if (!open) return null
 
@@ -52,12 +64,15 @@ export function Modal({ open, onClose, title, children, size = 'md' }: ModalProp
               onClick={onClose}
               className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors"
               style={{ color: 'var(--color-text-muted)' }}
+              aria-label={t('common.close')}
             >
               <X size={16} />
             </button>
           </div>
         )}
-        <div className="p-5">{children}</div>
+        <div className="p-5" style={{ overscrollBehavior: 'contain' }}>
+          {children}
+        </div>
       </div>
     </div>
   )

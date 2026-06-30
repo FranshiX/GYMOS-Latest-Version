@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Pencil, Trash2, Dumbbell, X, User, Search } from 'lucide-react'
-import { useWorkoutPlanStore } from '@/store/useWorkoutPlanStore'
-import { useMemberStore } from '@/store/useMemberStore'
+import { useWorkoutPlanStore, type WorkoutPlanStore } from '@/store/useWorkoutPlanStore'
+import { useMemberStore, type MemberStore } from '@/store/useMemberStore'
 import { pageVariants, pageTransition, listItemVariants } from '@/utils/variants'
 import { EmptyState } from '@/components/ui/EmptyState'
-import type { WorkoutPlan } from '@/domain/workout/types'
+import type { WorkoutPlan, WorkoutDay } from '@/domain/workout/types'
+import type { Member } from '@/domain/member/types'
 
 type PlanType = 'GENERAL' | 'CUSTOM'
 
@@ -31,11 +32,11 @@ export function WorkoutPlansScreen() {
   const navigate = useNavigate()
   const isAr = i18n.language === 'ar'
 
-  const plans  = useWorkoutPlanStore((s: any) => s.plans)
-  const addPlan    = useWorkoutPlanStore((s: any) => s.addPlan)
-  const deletePlan = useWorkoutPlanStore((s: any) => s.deletePlan)
-  const duplicatePlan = useWorkoutPlanStore((s: any) => s.duplicatePlan)
-  const members = useMemberStore((s: any) => s.members)
+  const plans  = useWorkoutPlanStore((s: WorkoutPlanStore) => s.plans)
+  const addPlan    = useWorkoutPlanStore((s: WorkoutPlanStore) => s.addPlan)
+  const deletePlan = useWorkoutPlanStore((s: WorkoutPlanStore) => s.deletePlan)
+  const duplicatePlan = useWorkoutPlanStore((s: WorkoutPlanStore) => s.duplicatePlan)
+  const members = useMemberStore((s: MemberStore) => s.members)
 
   const [activeTab, setActiveTab] = useState<PlanType>('GENERAL')
   const [showForm, setShowForm]   = useState(false)
@@ -71,19 +72,19 @@ export function WorkoutPlansScreen() {
 
   const getMemberName = useCallback((memberId?: string) => {
     if (!memberId) return '—'
-    const m = members.find((m: any) => m.id === memberId)
+    const m = members.find((m: Member) => m.id === memberId)
     return m?.fullName ?? '—'
   }, [members])
 
-  const generalPlans = useMemo(() => plans.filter((p: any) => p.type === 'GENERAL'), [plans])
-  const customPlans  = useMemo(() => plans.filter((p: any) => p.type === 'CUSTOM'),  [plans])
+  const generalPlans = useMemo(() => plans.filter((p: WorkoutPlan) => p.type === 'GENERAL'), [plans])
+  const customPlans  = useMemo(() => plans.filter((p: WorkoutPlan) => p.type === 'CUSTOM'),  [plans])
   
   // Filter plans by search query
   const filteredPlans = useMemo(() => {
     const plansToFilter = activeTab === 'GENERAL' ? generalPlans : customPlans
     if (!debouncedSearch) return plansToFilter
     
-    return plansToFilter.filter((plan: any) => {
+    return plansToFilter.filter((plan: WorkoutPlan) => {
       const nameMatch = plan.name_ar.toLowerCase().includes(debouncedSearch) ||
                        plan.name_en.toLowerCase().includes(debouncedSearch)
       if (nameMatch) return true
@@ -100,7 +101,7 @@ export function WorkoutPlansScreen() {
   // Sort plans
   const sortedPlans = useMemo(() => {
     const plansToSort = [...filteredPlans]
-    return plansToSort.sort((a: any, b: any) => {
+    return plansToSort.sort((a: WorkoutPlan, b: WorkoutPlan) => {
       let comparison = 0
       
       if (sortBy === 'name') {
@@ -322,8 +323,8 @@ export function WorkoutPlansScreen() {
                       className="w-full px-3 py-2.5 rounded-xl text-sm outline-none"
                       style={{ background: 'var(--color-bg-card)', color: 'var(--color-text-primary)', border: '1px solid var(--border-default)' }}
                     >
-                      <option value="">{t('plans.assigned_to')}...</option>
-                      {members.map((m: any) => (
+                      <option value="">{t('plans.assigned_to')}…</option>
+                      {members.map((m: Member) => (
                         <option key={m.id} value={m.id}>{m.fullName}</option>
                       ))}
                     </select>
@@ -385,7 +386,7 @@ export function WorkoutPlansScreen() {
           />
         ) : (
           <AnimatePresence mode="popLayout">
-            {visiblePlans.map((plan: any, index: number) => (
+            {visiblePlans.map((plan: WorkoutPlan, index: number) => (
               <motion.div
                 key={plan.id}
                 variants={listItemVariants}
@@ -459,7 +460,7 @@ export function WorkoutPlansScreen() {
       {/* Preview modal */}
       <AnimatePresence>
         {previewPlanId && (() => {
-          const previewPlan = plans.find((p: any) => p.id === previewPlanId)
+          const previewPlan = plans.find((p: WorkoutPlan) => p.id === previewPlanId)
           if (!previewPlan) return null
           const planName = isAr ? previewPlan.name_ar : previewPlan.name_en
           const memberName = getMemberName(previewPlan.assignedMemberId)
@@ -537,7 +538,7 @@ export function WorkoutPlansScreen() {
                       {t('plans.days')} ({previewPlan.days.length})
                     </p>
                     <div className="flex flex-col gap-2">
-                      {previewPlan.days.map((day: any) => (
+                      {previewPlan.days.map((day: WorkoutDay) => (
                         <div
                           key={day.id}
                           className="px-3 py-2 rounded-xl"

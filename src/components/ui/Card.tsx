@@ -62,9 +62,9 @@ export function Card({
       whileHover={onClick ? cardHover : undefined}
       whileTap={onClick ? cardTap : undefined}
       className={clsx(
-        'rounded-xl transition-all duration-200',
+        'rounded-xl transition-colors transition-transform duration-200',
         PADDING[padding],
-        onClick && 'cursor-pointer hover:border-[var(--color-primary)]',
+        onClick && 'cursor-pointer hover:border-[var(--color-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]',
         className,
       )}
       style={VARIANT_STYLES[variant]}

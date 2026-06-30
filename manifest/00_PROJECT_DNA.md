@@ -429,3 +429,78 @@ Handled automatically by CSS — no JS needed:
 - Never use inline bilingual fallback in JSX (`isAr ? 'عربي' : 'English'`)
   except inside `StreakWidget.tsx` where it exists as acknowledged debt;
   do not add new instances of this pattern.
+
+
+
+
+
+
+  # GymOS Session Summary — Chat Transfer Document
+
+## Session Accomplishments
+
+**Identity & Type Safety**
+- Confirmed phone→id bug fix holds in `WorkoutDayScreen` + `SessionCompleteScreen` — no regression
+- Removed all `any`-casts from both screens using real domain types (`Member`, `WorkoutLog`, `ExerciseLog`, `SetLog`, `WorkoutDay`, `WorkoutExercise`)
+- Removed 14 `any`-casts from `WorkoutPlansScreen` using `WorkoutPlanStore`, `MemberStore`, `WorkoutPlan`, `WorkoutDay`, `Member`
+- Fixed non-selector `useMemberStore()` usage in `WorkoutDayScreen` → proper selector
+
+**i18n**
+- Fixed `SessionCompleteScreen` hardcoded exertion labels + notes placeholder → `t()` with flat snake_case keys (`workout.exertion_easy`, etc.)
+- Converted entire `ExerciseLibraryScreen` from `isAr` ternaries to `t()` — added new `exerciseLibrary.*` namespace (15 keys) to both `en.json`/`ar.json`
+- Fixed `CheckInScreen` hardcoded `'...'` loading string → `t('common.loading')`
+
+**Accessibility**
+- `Modal` + `Drawer`: added `aria-label={t('common.close')}`, `overscrollBehavior: contain`, Escape key handler
+- `Card`: added `focus-visible:ring-2` gated behind `onClick` conditional
+- `Button`: `transition-all` → `transition-colors transition-opacity`
+- `ExerciseLibraryScreen` delete button: `aria-label={t('common.delete')}`
+- `SetLogger`: `inputMode="decimal"` on weight, `inputMode="numeric"` on reps
+
+**Layout / PWA**
+- `AppShell`: removed `Sidebar`, centered content at `max-w-md` always, `transform: translateZ(0)` containing-block fix for `BottomNav` fixed positioning
+
+**Infrastructure**
+- `index.css`: added `color-scheme: dark` to `html {}` rule
+- Resolved corrupted `node_modules` (Windows AV interference) via `npm cache clean --force` + reinstall
+- `react-i18next` upgraded to resolve `TFunction` type collapse against `i18next@^26`
+
+**Typography Audit**
+- `WorkoutPlansScreen`: `...` → `…` (1 real instance)
+- All store files (`useWorkoutPlanStore`, `useWorkoutLogStore`, etc.): **all `...` confirmed as spread/rest operators** — zero real ellipsis instances. Report was entirely wrong for these files.
+- `improvingPoint.md` false positives closed: `ReportsScreen`, `Input`, `RegistrationModal`, `MemberProgressScreen`, `MyProgressScreen`, `MeasurementsScreen` — all `...` were spread syntax
+
+---
+
+## Open / Deferred Items
+
+| # | File | Issue | Status |
+|---|------|-------|--------|
+| 3 | `SessionCompleteScreen` | `perceivedExertion`/`notes` captured locally but never persisted | **Deferred** — intentional, future feature. Needs data shape decision first (`WorkoutLog` field vs separate entity) |
+| 26 | `useMemberStore.ts` | `(set: any, get: any)` inside store implementation | **Logged** — same bug class as screen-level fixes, but inside the store itself |
+| — | All other stores | `(set: any, get: any)` pattern likely present in `useWorkoutPlanStore`, `useWorkoutLogStore`, etc. | **Not audited yet** — suspect same pattern, needs repomix pull to confirm |
+| — | Other admin screens | `WorkoutPlansScreen`, `ReportsScreen`, `CheckInScreen`, `MemberProgressScreen` — `isAr` ternaries instead of `t()` | **Not started** — same pattern as `ExerciseLibraryScreen`, needs scoped i18n pass per file |
+| — | Member screens | `MyProgressScreen`, `MeasurementsScreen` — full audit not done | **Not started** |
+
+---
+
+## Recommended Next Session Order
+
+1. **Store internals audit** — pull all store files, fix `(set: any, get: any)` pattern across all of them in one pass (same fix shape, low risk)
+2. **Admin screens i18n** — `WorkoutPlansScreen`, `ReportsScreen`, `CheckInScreen` one file at a time, same `ExerciseLibraryScreen` methodology (map all `isAr` ternaries, check existing keys first, create namespaced new keys only where needed)
+3. **`perceivedExertion`/`notes` persistence** — design the data shape first (product decision), then implement
+
+---
+
+## How to Run the Next Session
+
+Start by uploading `00_PROJECT_DNA.md` + this transfer block. Then request repomix for the specific target before any diagnosis — never guess from memory. Workflow stays identical:
+
+```
+repomix --include "src/store/useWorkoutPlanStore.ts,src/store/useWorkoutLogStore.ts,..." --output repomix/task-name.xml
+```
+
+Patch delivery going forward: the coding LLM (with file/terminal access) applies changes directly to real files and sends back the diff for architecture review — do not rely on `git apply` from chat-generated patches, as line-number drift from context mismatches will cause failures. The correct workflow is: **coding LLM edits files → sends diff → architect (Claude) reviews diff → `npx tsc -b --noEmit` confirms clean**.
+
+---
+

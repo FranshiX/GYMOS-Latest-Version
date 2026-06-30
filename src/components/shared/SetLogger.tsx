@@ -152,6 +152,7 @@ export function SetLogger({ sessionId, exerciseId, onComplete, targetSets = 3, t
               <input
                 type="number"
                 min="0"
+                inputMode="decimal"
                 step="2.5"
                 value={row.weight || ''}
                 onChange={e => update(i, 'weight', parseFloat(e.target.value) || 0)}
@@ -170,6 +171,7 @@ export function SetLogger({ sessionId, exerciseId, onComplete, targetSets = 3, t
               <input
                 type="number"
                 min="0"
+                inputMode="numeric"
                 step="1"
                 value={row.reps || ''}
                 onChange={e => update(i, 'reps', parseInt(e.target.value) || 0)}

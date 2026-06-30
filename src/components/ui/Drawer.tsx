@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { useDirection } from '@/hooks/useDirection'
 
@@ -11,12 +12,22 @@ interface DrawerProps {
 
 export function Drawer({ open, onClose, title, children }: DrawerProps) {
   const { isRTL } = useDirection()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden'
     else      document.body.style.overflow = ''
     return () => { document.body.style.overflow = '' }
   }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [open, onClose])
 
   return (
     <>
@@ -51,12 +62,13 @@ export function Drawer({ open, onClose, title, children }: DrawerProps) {
             onClick={onClose}
             className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 ms-auto"
             style={{ color: 'var(--color-text-muted)' }}
+            aria-label={t('common.close')}
           >
             <X size={16} />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-5">
+        <div className="flex-1 overflow-y-auto p-5" style={{ overscrollBehavior: 'contain' }}>
           {children}
         </div>
       </div>

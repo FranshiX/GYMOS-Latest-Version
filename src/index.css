@@ -131,6 +131,7 @@ html {
   color: var(--text-primary);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
 }
 
 /* ── Reduced Motion ── */

@@ -27,7 +27,7 @@ const EMPTY_FORM = {
 };
 
 export function ExerciseLibraryScreen() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isAr = i18n.language === 'ar';
   const dir = i18n.dir();
   const { exercises, addExercise, deleteExercise } = useExerciseStore();
@@ -71,10 +71,10 @@ export function ExerciseLibraryScreen() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-            {isAr ? 'مكتبة التمارين' : 'Exercise Library'}
+            {t('workout.library')}
           </h1>
           <p className="text-sm mt-0.5" style={{ color: 'var(--color-text-muted)' }}>
-            {exercises.length} {isAr ? 'تمرين' : 'exercises'}
+            {exercises.length} {t('exerciseLibrary.exercises_count')}
           </p>
         </div>
         <button
@@ -83,7 +83,7 @@ export function ExerciseLibraryScreen() {
           style={{ background: 'var(--color-brand)', color: '#0A0A0A' }}
         >
           <Plus size={16} />
-          {isAr ? 'إضافة' : 'Add'}
+          {t('exerciseLibrary.add_button')}
         </button>
       </div>
 
@@ -96,7 +96,7 @@ export function ExerciseLibraryScreen() {
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder={isAr ? 'ابحث عن تمرين...' : 'Search exercises...'}
+          placeholder={t('exerciseLibrary.search_placeholder')}
           className="flex-1 bg-transparent outline-none text-sm"
           style={{ color: 'var(--color-text-primary)' }}
         />
@@ -133,7 +133,7 @@ export function ExerciseLibraryScreen() {
             <Dumbbell size={20} style={{ color: 'var(--color-text-muted)' }} />
           </div>
           <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
-            {isAr ? 'لا توجد تمارين' : 'No exercises found'}
+            {t('exerciseLibrary.no_results')}
           </p>
         </div>
       ) : (
@@ -145,6 +145,7 @@ export function ExerciseLibraryScreen() {
                 onClick={() => setDeleteId(ex.id)}
                 className="absolute top-3 end-3 opacity-0 group-hover:opacity-100 w-7 h-7 rounded-full flex items-center justify-center transition-all"
                 style={{ background: 'var(--color-danger-muted)', border: '1px solid rgba(224,82,82,0.25)' }}
+                aria-label={t('common.delete')}
               >
                 <Trash2 size={12} style={{ color: 'var(--color-danger)' }} />
               </button>
@@ -157,14 +158,14 @@ export function ExerciseLibraryScreen() {
       <Modal
         open={showModal}
         onClose={() => setShowModal(false)}
-        title={isAr ? 'إضافة تمرين جديد' : 'Add New Exercise'}
+        title={t('exerciseLibrary.add_new_title')}
         size="md"
       >
         <div className="flex flex-col gap-4">
           {/* Name AR */}
           <div>
             <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-muted)' }}>
-              {isAr ? 'الاسم بالعربية' : 'Name (Arabic)'}
+              {t('exerciseLibrary.name_ar_label')}
             </label>
             <input
               value={form.name_ar}
@@ -179,7 +180,7 @@ export function ExerciseLibraryScreen() {
           {/* Name EN */}
           <div>
             <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-muted)' }}>
-              {isAr ? 'الاسم بالإنجليزية' : 'Name (English)'}
+              {t('exerciseLibrary.name_en_label')}
             </label>
             <input
               value={form.name_en}
@@ -194,7 +195,7 @@ export function ExerciseLibraryScreen() {
           {/* Muscle Group */}
           <div>
             <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-muted)' }}>
-              {isAr ? 'المجموعة العضلية' : 'Muscle Group'}
+              {t('exerciseLibrary.muscle_group_label')}
             </label>
             <select
               value={form.muscleGroup}
@@ -213,12 +214,12 @@ export function ExerciseLibraryScreen() {
           {/* Equipment */}
           <div>
             <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-muted)' }}>
-              {isAr ? 'المعدات' : 'Equipment'}
+              {t('exerciseLibrary.equipment_label')}
             </label>
             <input
               value={form.equipment}
               onChange={(e) => handleFormChange('equipment', e.target.value)}
-              placeholder={isAr ? 'مثال: بار + بنش' : 'e.g. Barbell + Bench'}
+              placeholder={t('exerciseLibrary.equipment_placeholder')}
               className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
               style={{ background: 'var(--color-bg-elevated)', border: '1px solid var(--color-bg-border)', color: 'var(--color-text-primary)' }}
             />
@@ -227,7 +228,7 @@ export function ExerciseLibraryScreen() {
           {/* Video URL */}
           <div>
             <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-muted)' }}>
-              {isAr ? 'رابط الفيديو' : 'Video URL'}
+              {t('exerciseLibrary.video_url_label')}
             </label>
             <input
               value={form.videoUrl}
@@ -242,7 +243,7 @@ export function ExerciseLibraryScreen() {
           {/* Description AR */}
           <div>
             <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-muted)' }}>
-              {isAr ? 'الوصف بالعربية' : 'Description (Arabic)'}
+              {t('exerciseLibrary.description_ar_label')}
             </label>
             <textarea
               value={form.description_ar}
@@ -257,7 +258,7 @@ export function ExerciseLibraryScreen() {
           {/* Description EN */}
           <div>
             <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-muted)' }}>
-              {isAr ? 'الوصف بالإنجليزية' : 'Description (English)'}
+              {t('exerciseLibrary.description_en_label')}
             </label>
             <textarea
               value={form.description_en}
@@ -275,7 +276,7 @@ export function ExerciseLibraryScreen() {
             className="w-full py-3 rounded-xl text-sm font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-98"
             style={{ background: 'var(--color-brand)', color: '#0A0A0A' }}
           >
-            {isAr ? 'إضافة التمرين' : 'Add Exercise'}
+            {t('workout.addExercise')}
           </button>
         </div>
       </Modal>
@@ -284,7 +285,7 @@ export function ExerciseLibraryScreen() {
       <Modal
         open={deleteId !== null}
         onClose={() => setDeleteId(null)}
-        title={isAr ? 'حذف التمرين' : 'Delete Exercise'}
+        title={t('exerciseLibrary.delete_title')}
         size="sm"
       >
         <div className="flex flex-col items-center gap-4 py-2">
@@ -292,7 +293,7 @@ export function ExerciseLibraryScreen() {
             <Trash2 size={20} style={{ color: 'var(--color-danger)' }} />
           </div>
           <p className="text-sm text-center" style={{ color: 'var(--color-text-muted)' }}>
-            {isAr ? 'هل أنت متأكد من حذف هذا التمرين؟' : 'Are you sure you want to delete this exercise?'}
+            {t('exerciseLibrary.delete_confirm_message')}
           </p>
           <div className="flex gap-3 w-full">
             <button
@@ -300,14 +301,14 @@ export function ExerciseLibraryScreen() {
               className="flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors"
               style={{ background: 'var(--color-bg-elevated)', border: '1px solid var(--color-bg-border)', color: 'var(--color-text-secondary)' }}
             >
-              {isAr ? 'إلغاء' : 'Cancel'}
+              {t('common.cancel')}
             </button>
             <button
               onClick={handleDelete}
               className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-colors"
               style={{ background: 'var(--color-danger)', color: 'white' }}
             >
-              {isAr ? 'حذف' : 'Delete'}
+              {t('common.delete')}
             </button>
           </div>
         </div>

@@ -96,7 +96,7 @@
     "weeks": "weeks",
     "months": "months",
     "visits": "visits",
-    "select": "Select Plan" ,
+    "select": "Select Plan",
     "general_tab": "General Plans",
     "custom_tab": "Custom Plans",
     "create": "Create Plan",
@@ -123,29 +123,28 @@
   },
   "reports": {
     "title": "Reports",
-  "revenue": "Revenue",
-  "attendance": "Attendance",
-  "membership": "Memberships",
-  "expired": "Expired",
-  "monthly_revenue": "Monthly Revenue",
-  "peak_day": "Peak Day",
-  "expired_members": "Expired Members"
-
+    "revenue": "Revenue",
+    "attendance": "Attendance",
+    "membership": "Memberships",
+    "expired": "Expired",
+    "monthly_revenue": "Monthly Revenue",
+    "peak_day": "Peak Day",
+    "expired_members": "Expired Members"
   },
   "settings": {
-   "title": "Settings",
-  "plans_title": "Membership Plans",
-  "language": "Language",
-  "arabic": "Arabic",
-  "english": "English",
-  "plans": "Subscription Plans",
-  "app_version": "App Version"
+    "title": "Settings",
+    "plans_title": "Membership Plans",
+    "language": "Language",
+    "arabic": "Arabic",
+    "english": "English",
+    "plans": "Subscription Plans",
+    "app_version": "App Version"
   },
   "status": {
- "active": "Active",
-  "expiring_soon": "Expiring Soon",
-  "expired": "Expired",
-  "expiring": "Expiring Soon"
+    "active": "Active",
+    "expiring_soon": "Expiring Soon",
+    "expired": "Expired",
+    "expiring": "Expiring Soon"
   },
   "result": {
     "granted": "Granted",
@@ -230,7 +229,12 @@
     "notes_optional": "Notes (optional)",
     "back_to_home": "Back to Home",
     "workout_days": "Workout Days",
-    "complete_previous_first": "Complete previous workout first"
+    "complete_previous_first": "Complete previous workout first",
+    "exertion_easy": "Easy",
+    "exertion_moderate": "Moderate",
+    "exertion_hard": "Hard",
+    "exertion_very_hard": "Very Hard",
+    "notes_placeholder": "Add your notes here..."
   },
   "exercise": {
     "coach_notes": "Coach Notes",
@@ -239,8 +243,8 @@
     "add": "Add Exercise",
     "delete_confirm": "Delete this exercise?",
     "filter_all": "All"
-  } , 
-   "builder": {
+  },
+  "builder": {
     "add_exercise": "Add Exercise",
     "add_day": "Add Day",
     "sets": "Sets",
@@ -262,13 +266,29 @@
     "weight": "Weight (kg)",
     "body_fat": "Body Fat %",
     "no_data": "No measurements recorded"
-  } ,
+  },
   "widget": {
-   "streak_label": "day streak",
-  "sets_logged": "Sets Logged",
-  "sessions": "Sessions",
-  "best_lift": "Best Lift",
-  "weight_change": "Weight Change"
-} 
-
+    "streak_label": "day streak",
+    "sets_logged": "Sets Logged",
+    "sessions": "Sessions",
+    "best_lift": "Best Lift",
+    "weight_change": "Weight Change"
+  },
+  "exerciseLibrary": {
+    "exercises_count": "exercises",
+    "add_button": "Add",
+    "search_placeholder": "Search exercises...",
+    "no_results": "No exercises found",
+    "add_new_title": "Add New Exercise",
+    "name_ar_label": "Name (Arabic)",
+    "name_en_label": "Name (English)",
+    "muscle_group_label": "Muscle Group",
+    "equipment_label": "Equipment",
+    "equipment_placeholder": "e.g. Barbell + Bench",
+    "video_url_label": "Video URL",
+    "description_ar_label": "Description (Arabic)",
+    "description_en_label": "Description (English)",
+    "delete_title": "Delete Exercise",
+    "delete_confirm_message": "Are you sure you want to delete this exercise?"
+  }
 }

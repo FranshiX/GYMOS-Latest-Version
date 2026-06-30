@@ -96,8 +96,8 @@
     "weeks": "أسابيع",
     "months": "أشهر",
     "visits": "زيارة",
-    "select": "اختر هذه الخطة" ,
-     "general_tab": "البرامج العامة",
+    "select": "اختر هذه الخطة",
+    "general_tab": "البرامج العامة",
     "custom_tab": "البرامج المخصصة",
     "create": "إنشاء برنامج",
     "create_first": "إنشاء أول برنامج",
@@ -122,29 +122,29 @@
     "sort_by_day_count": "ترتيب حسب عدد الأيام"
   },
   "reports": {
- "title": "التقارير",
-  "revenue": "الإيرادات",
-  "attendance": "الحضور",
-  "membership": "الاشتراكات",
-  "expired": "المنتهية",
-  "monthly_revenue": "الإيراد الشهري",
-  "peak_day": "أكثر يوم نشاطاً",
-  "expired_members": "الأعضاء المنتهية"
+    "title": "التقارير",
+    "revenue": "الإيرادات",
+    "attendance": "الحضور",
+    "membership": "الاشتراكات",
+    "expired": "المنتهية",
+    "monthly_revenue": "الإيراد الشهري",
+    "peak_day": "أكثر يوم نشاطاً",
+    "expired_members": "الأعضاء المنتهية"
   },
   "settings": {
-  "title": "الإعدادات",
-  "plans_title": "خطط الاشتراك",
-  "language": "اللغة",
-  "arabic": "العربية",
-  "english": "الإنجليزية",
-  "plans": "خطط الاشتراك",
-  "app_version": "إصدار التطبيق"
+    "title": "الإعدادات",
+    "plans_title": "خطط الاشتراك",
+    "language": "اللغة",
+    "arabic": "العربية",
+    "english": "الإنجليزية",
+    "plans": "خطط الاشتراك",
+    "app_version": "إصدار التطبيق"
   },
   "status": {
-     "active": "نشط",
-  "expiring_soon": "ينتهي قريباً",
-  "expired": "منتهي",
-  "expiring": "ينتهي قريباً"
+    "active": "نشط",
+    "expiring_soon": "ينتهي قريباً",
+    "expired": "منتهي",
+    "expiring": "ينتهي قريباً"
   },
   "result": {
     "granted": "مسموح",
@@ -234,7 +234,12 @@
     "notes_optional": "ملاحظات (اختياري)",
     "back_to_home": "العودة للرئيسية",
     "workout_days": "أيام التدريب",
-    "complete_previous_first": "أكمل التمرين السابق أولاً"
+    "complete_previous_first": "أكمل التمرين السابق أولاً",
+    "exertion_easy": "سهل",
+    "exertion_moderate": "متوسط",
+    "exertion_hard": "صعب",
+    "exertion_very_hard": "صعب جداً",
+    "notes_placeholder": "أضف ملاحظاتك هنا..."
   },
   "exercise": {
     "coach_notes": "ملاحظات المدرب",
@@ -243,8 +248,8 @@
     "add": "إضافة تمرين",
     "delete_confirm": "حذف هذا التمرين؟",
     "filter_all": "الكل"
-  } ,
-    "builder": {
+  },
+  "builder": {
     "add_exercise": "إضافة تمرين",
     "add_day": "إضافة يوم",
     "sets": "مجموعات",
@@ -266,12 +271,29 @@
     "weight": "الوزن (كغ)",
     "body_fat": "نسبة الدهون %",
     "no_data": "لا قياسات مسجلة"
-  } , 
+  },
   "widget": {
-  "streak_label": "يوم متتالي",
-  "sets_logged": "مجموعات مسجلة",
-  "sessions": "جلسات",
-  "best_lift": "أفضل رفع",
-  "weight_change": "تغير الوزن"
-}
+    "streak_label": "يوم متتالي",
+    "sets_logged": "مجموعات مسجلة",
+    "sessions": "جلسات",
+    "best_lift": "أفضل رفع",
+    "weight_change": "تغير الوزن"
+  },
+  "exerciseLibrary": {
+    "exercises_count": "تمرين",
+    "add_button": "إضافة",
+    "search_placeholder": "ابحث عن تمرين...",
+    "no_results": "لا توجد تمارين",
+    "add_new_title": "إضافة تمرين جديد",
+    "name_ar_label": "الاسم بالعربية",
+    "name_en_label": "الاسم بالإنجليزية",
+    "muscle_group_label": "المجموعة العضلية",
+    "equipment_label": "المعدات",
+    "equipment_placeholder": "مثال: بار + بنش",
+    "video_url_label": "رابط الفيديو",
+    "description_ar_label": "الوصف بالعربية",
+    "description_en_label": "الوصف بالإنجليزية",
+    "delete_title": "حذف التمرين",
+    "delete_confirm_message": "هل أنت متأكد من حذف هذا التمرين؟"
+  }
 }

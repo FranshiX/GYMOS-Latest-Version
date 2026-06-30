@@ -269,7 +269,7 @@ export function CheckInScreen() {
           onClick={handleSubmit}
           disabled={!phone.trim() || isProcessing}
         >
-          {isProcessing ? '...' : t('checkin.submit')}
+          {isProcessing ? t('common.loading') : t('checkin.submit')}
         </Button>
       </Card>
 
